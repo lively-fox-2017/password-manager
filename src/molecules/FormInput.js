@@ -44,7 +44,7 @@ class FormInput extends Component {
         <div className="field">
         <label className="label">{this.props.label}</label>
         <div className="control has-icons-left has-icons-right">
-          <input className={`input ${this.state.formColor}`} type="text" placeholder={this.props.placeholder} />
+          <input className={`input ${this.state.formColor}`} type={this.props.type} placeholder={this.props.placeholder} />
           <span className="icon is-small is-left">
             <i className={`fa ${this.props.fa}`}></i>
           </span>

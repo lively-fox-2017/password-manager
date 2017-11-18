@@ -7,7 +7,7 @@ class Home extends Component {
     return (
       <div>
         <div className="columns">
-          <div className="column is-three-fifths is-offset-one-fifth">
+          <div className="column is-10 is-offset-1">
             <AccountList/>
           </div>
         </div>

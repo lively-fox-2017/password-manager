@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { getAllAccounts, deleteAccount, editAccount } from './actions/managerAction'
 
 import InputForm from './InputForm'
-import Search from './Search'
 import loading from './images/loading.gif'
+import searchIcon from './images/search.png'
 
 class RootContainer extends React.Component{
   constructor() {
@@ -18,7 +18,8 @@ class RootContainer extends React.Component{
         password: '',
         createdAt: '',
         updatedAt: ''
-      }
+      },
+      search: ''
     }
   }
 
@@ -68,11 +69,31 @@ class RootContainer extends React.Component{
     this.props.EditAccount(this.state.account.id, this.state.account)
   }
 
+  handleSearch = (e) => {
+    this.setState({
+      search: e.target.value
+    })
+  }
+
   render() {
     const { url, username, password } = this.state.account
+    const searchPassword = this.props.accounts.filter(
+      (account) => {
+        // console.log(this.state.search);
+        return account.password.indexOf(this.state.search) !== -1
+      }
+    )
     return (
       <div>
-        <Search />
+        <div className="form-group">
+          <div className="input-group">
+            <span className="input-group-addon"><img src={searchIcon} alt="search icon" style={{"width": 25+"px"}} /></span>
+            <input className="form-control" type="text" value={this.state.search} onChange={ this.handleSearch } />
+            <span className="input-group-btn">
+              <button className="btn btn-default" type="button">Search</button>
+            </span>
+          </div>
+        </div>
 
         <table className="table table-striped table-hover">
           <thead>
@@ -88,7 +109,7 @@ class RootContainer extends React.Component{
           </thead>
           <tbody>
           { this.props.accounts.length === 0 ? <tr><td colSpan="7" className="text-center"><img src={loading} alt="loading.." style={{"width":100+"px"}} /></td></tr> :
-            this.props.accounts.map((account, index) => {
+            searchPassword.map((account, index) => {
               return (
                 <tr className="success" key={index}>
                   <td>{ index+1 }.</td>

@@ -16,8 +16,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "db": "node_modules/json-server/bin/index.js --port 4000 --watch database/password-manager.json",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "json-server": "^0.12.1"
   }
 }

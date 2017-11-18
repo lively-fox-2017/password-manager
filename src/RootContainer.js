@@ -89,9 +89,6 @@ class RootContainer extends React.Component{
           <div className="input-group">
             <span className="input-group-addon"><img src={searchIcon} alt="search icon" style={{"width": 25+"px"}} /></span>
             <input className="form-control" type="text" value={this.state.search} onChange={ this.handleSearch } />
-            <span className="input-group-btn">
-              <button className="btn btn-default" type="button">Search</button>
-            </span>
           </div>
         </div>
 

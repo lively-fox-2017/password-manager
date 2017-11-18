@@ -1,10 +1,28 @@
 {
-  "users": [
+  "accounts": [
     {
-      "id": 1,
+      "id": "ad1917ac-df09-573b-ba34-1fb0a91f8aca",
+      "url": "https://gmail.com",
       "username": "terrathe2",
       "password": "terrathe2",
-      "list-account": []
+      "createdAt": "2017-11-18T12:40:12.325Z",
+      "updatedAt": "2017-11-18T14:00:38.214Z"
+    },
+    {
+      "id": "3e6e142a-2f04-51a8-a744-ff6f64e3a60a",
+      "url": "https://facebook.com",
+      "username": "terrathe4",
+      "password": "terrathe4",
+      "createdAt": "2017-11-18T14:01:36.610Z",
+      "updatedAt": ""
+    },
+    {
+      "id": "29232ea9-5481-5d7c-ab50-e4f37da44b05",
+      "url": "https://hacktiv8slack.com",
+      "username": "terrathe2",
+      "password": "terrathe2",
+      "createdAt": "2017-11-18T14:01:56.531Z",
+      "updatedAt": "2017-11-18T14:03:30.203Z"
     }
   ]
 }

@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import dotenv from 'dotenv'
 import { Provider } from 'react-redux'
-import logo from './logo.svg'
-import './App.css'
 
-import store from './store'
-import MainLayouts from './layouts/MainLayout'
+import { store } from './store'
+import MainComponent from './components/MainComponent'
+import FormContainer from './containers/FormContainer'
 
 dotenv.config()
 
@@ -15,7 +14,11 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <MainLayouts></MainLayouts>
+          <Route path="/" render={({match}) => (
+            <MainComponent>
+              <FormContainer />
+            </MainComponent>
+          )} />
         </Router>
       </Provider>
     );

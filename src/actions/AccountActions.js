@@ -1,10 +1,16 @@
-export const REQUEST_ACCOUNTS = 'REQUEST_ACCOUNTS'
+export const TOGGLE_SUCCESS = 'TOGGLE_SUCCESS'
+export const REQUEST_API = 'REQUEST_API'
 export const RECIEVE_ACCOUNTS = 'RECIEVE_ACCOUNTS'
 export const FETCH_ACCOUNTS = 'FETCH_ACCOUNTS'
 export const FAILED_REQUEST = 'FAILED_REQUEST'
+export const ADD_ACCOUNT = 'ADD_ACCOUNT'
+export const FETCH_ADD_ACCOUNT = 'FETCH_ADD_ACCOUNT'
 
-export const requestAccounts = () => ({
-  type: REQUEST_ACCOUNTS
+export const toggleSuccess = () => ({
+  type: TOGGLE_SUCCESS
+})
+export const requestAPI = () => ({
+  type: REQUEST_API
 })
 export const recieveAccounts = (accounts) => ({
   type: RECIEVE_ACCOUNTS,
@@ -18,6 +24,18 @@ export const failedRequest = (error) => ({
     error
   }
 })
+export const addAccount = (account) => ({
+  type: ADD_ACCOUNT,
+  payload: {
+    account
+  }
+})
 export const fetchAccounts = () => ({
   type: FETCH_ACCOUNTS
+})
+export const fetchAddAccount = (account) => ({
+  type: FETCH_ADD_ACCOUNT,
+  payload: {
+    account
+  }
 })

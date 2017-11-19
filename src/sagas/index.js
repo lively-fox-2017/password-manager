@@ -1,9 +1,12 @@
-import { fork } from 'redux-saga/effects'
+import { fork, all } from 'redux-saga/effects'
 
-import { watchFetchAccount } from './AccountSagas'
+import { watchFetchAccount, watchAddAccount } from './AccountSagas'
 
 const rootSaga = function* () {
-  yield fork(watchFetchAccount)
+  yield all([
+    fork(watchFetchAccount),
+    fork(watchAddAccount)
+  ])
 }
 
 export default rootSaga

@@ -4,7 +4,7 @@ import owasp from 'owasp-password-strength-test'
 import { connect } from 'react-redux'
 
 import FieldComponent from '../components/FieldComponent'
-import { fetchAccounts } from '../actions/AccountActions'
+import { fetchAddAccount, toggleSuccess } from '../actions/AccountActions'
 
 class FormContainer extends Component {
 
@@ -14,10 +14,6 @@ class FormContainer extends Component {
     this.state = {
 
     }
-  }
-
-  componentWillMount () {
-    this.props.fetchAccounts()
   }
 
   passwordStrength = value => {
@@ -31,11 +27,11 @@ class FormContainer extends Component {
     }
   }
 
-  submitHandler = data => {
-    console.log(data)
-  }
-
   required = value => value ? undefined : ['This field is required']
+
+  submitHandler = data => {
+    this.props.fetchAddAccount(data)
+  }
 
   render() {
     return (
@@ -69,8 +65,16 @@ class FormContainer extends Component {
               component={FieldComponent}
               validate={[this.passwordStrength, this.required]}
             />
-            <button className="btn btn-primary" type="button" onClick={this.props.handleSubmit(data => this.submitHandler(data))}>Save</button>&nbsp;
-            <button className="btn btn-secondary" type="reset" onClick={this.props.reset}>Reset</button>
+            <fieldset className="form-group">
+              <button className="btn btn-secondary" type="reset" onClick={this.props.reset}>Reset</button>&nbsp;
+              <button className="btn btn-primary" type="button" onClick={this.props.handleSubmit(data => this.submitHandler(data))}>Save</button>
+            </fieldset>
+            <br />
+            {this.props.isSuccess &&
+              <div className="alert alert-dismissible alert-success">
+                <button type="button" className="close" onClick={this.props.toggleSuccess}>&times;</button>
+                <strong>Well done!</strong> You successfully save an account.
+              </div>}
           </form>
         </div>
         <div className="col-md-4"></div>
@@ -82,12 +86,14 @@ class FormContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    accounts: state.accountReducer.accounts
+    accounts: state.accountReducer.accounts,
+    isSuccess: state.accountReducer.isSuccess
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAccounts: () => dispatch(fetchAccounts())
+    fetchAddAccount: (account) => dispatch(fetchAddAccount(account)),
+    toggleSuccess: () => dispatch(toggleSuccess())
   }
 }
 

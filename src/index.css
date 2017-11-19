@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.form-wrp {
+  max-width: 700px;
+  margin: 0 auto;
+  border: 1px solid #c0c0c0;
+}
+.form {
+  max-width: 700px;
+  padding: 20px 20px 0 20px;
+}
+.form-wrp h2 {
+  font-size: 18px;
+  text-transform: uppercase;
+  background: #242c35;
+  color: #fff;
+  margin: 0;
+  padding: 10px;
+}
+.form .control-label {
+  text-align: left;
+}
+.form .btn {
+  float: right;
+  margin: 0;
+  margin-left:10px;
+}

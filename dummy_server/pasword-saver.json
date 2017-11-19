@@ -1,0 +1,36 @@
+{
+  "account": [
+    {
+      "createdAt": "09:32:48 GMT+0700 (WIB)",
+      "updatedAt": "",
+      "username": "nncrawler",
+      "password": "nncrawler",
+      "url": "github.com",
+      "id": "HkFLawAkf"
+    },
+    {
+      "createdAt": "Sun, 19 Nov 2017 06:31:52 GMT",
+      "updatedAt": "",
+      "username": "nncrawler",
+      "password": "asu123",
+      "url": "facebook.com",
+      "id": "ryWwroRyz"
+    },
+    {
+      "createdAt": "Sun, 19 Nov 2017 06:39:34 GMT",
+      "updatedAt": "",
+      "username": "lala",
+      "password": "lolo",
+      "url": "asd",
+      "id": "Hy1EwsRyf"
+    },
+    {
+      "createdAt": "Sun, 19 Nov 2017 06:42:03 GMT",
+      "updatedAt": "",
+      "username": "phase_1@hacktiv8.com",
+      "password": "hacktiv8Super",
+      "url": "Den password Hacktiv8",
+      "id": "SJVaPo0yM"
+    }
+  ]
+}

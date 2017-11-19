@@ -12,6 +12,7 @@
   height: 150px;
   padding: 20px;
   color: black;
+  margin-bottom: 10px;
 }
 
 .App-title {
@@ -25,4 +26,8 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.bottom-buffer {
+  margin-bottom: 5px;
 }

@@ -3,15 +3,17 @@ import { Route } from 'react-router-dom'
 
 import MainComponent from '../components/MainComponent'
 import FormContainer from '../containers/FormContainer'
+import TableComponent from '../components/TableComponent'
 
 const Routes = (props) => (
-  <div>
+  <MainComponent>
     <Route path="/" render={({match}) => (
-      <MainComponent>
+      <div>
         <FormContainer />
-      </MainComponent>
+        <TableComponent />
+      </div>
     )} />
-  </div>
+  </MainComponent>
 )
 
 export default Routes

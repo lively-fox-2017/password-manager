@@ -27,12 +27,17 @@ class FormContainer extends Component {
     }
   }
 
+  submitHandler = data => {
+    console.log(data)
+  }
+
+  required = value => value ? undefined : ['This field is required']
+
   render() {
     return (
       <div className="row">
         <div className="col-md-4"></div>
         <div className="col-md-4">
-          <h3 className="text-center">Password Manager</h3>
           <form>
             <Field
               name="url"
@@ -40,6 +45,7 @@ class FormContainer extends Component {
               component="input"
               type="text"
               component={FieldComponent}
+              validate={this.required}
               placeholder="https://example.com"
             />
             <Field
@@ -48,6 +54,7 @@ class FormContainer extends Component {
               component="input"
               type="text"
               component={FieldComponent}
+              validate={this.required}
               placeholder="johdoe"
             />
             <Field
@@ -56,9 +63,9 @@ class FormContainer extends Component {
               component="input"
               type="password"
               component={FieldComponent}
-              validate={this.passwordStrength}
+              validate={[this.passwordStrength, this.required]}
             />
-            <button className="btn btn-primary" type="button">Save</button>&nbsp;
+            <button className="btn btn-primary" type="button" onClick={this.props.handleSubmit(data => this.submitHandler(data))}>Save</button>&nbsp;
             <button className="btn btn-secondary" type="reset" onClick={this.props.reset}>Reset</button>
           </form>
         </div>

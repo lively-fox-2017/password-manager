@@ -3,14 +3,14 @@ import { Route } from 'react-router-dom'
 
 import MainComponent from '../components/MainComponent'
 import FormContainer from '../containers/FormContainer'
-import TableComponent from '../components/TableComponent'
+import TableContainer from '../containers/TableContainer'
 
 const Routes = (props) => (
   <MainComponent>
     <Route path="/" render={({match}) => (
       <div>
         <FormContainer />
-        <TableComponent />
+        <TableContainer />
       </div>
     )} />
   </MainComponent>

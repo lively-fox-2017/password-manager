@@ -1,4 +1,4 @@
-import {REQUEST_API, RECIEVE_ACCOUNTS, FAILED_REQUEST, ADD_ACCOUNT, TOGGLE_SUCCESS} from '../actions/AccountActions'
+import {REQUEST_API, RECIEVE_ACCOUNTS, FAILED_REQUEST, ADD_ACCOUNT, DELETE_ACCOUNT, TOGGLE_SUCCESS} from '../actions/AccountActions'
 const defaultState = {
   isRequesting: false,
   isError: false,
@@ -42,6 +42,12 @@ const accountReducer = (state = defaultState, action) => {
         accounts: state.accounts.push(action.payload.account),
         isError: false,
         isSuccess: true
+      }
+    case DELETE_ACCOUNT:
+      const idx = state.accounts.findIndex(element => element.id === action.payload.id)
+      return {
+        ...state,
+        accounts: state.accounts.splice(idx, 1)
       }
     default:
       return state

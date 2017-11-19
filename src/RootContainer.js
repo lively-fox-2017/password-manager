@@ -6,6 +6,8 @@ import { getAllAccounts, deleteAccount, editAccount } from './actions/managerAct
 import InputForm from './InputForm'
 import loading from './images/loading.gif'
 import searchIcon from './images/search.png'
+import trueImg from './images/true.png'
+import falseImg from './images/false.png'
 
 class RootContainer extends React.Component{
   constructor() {
@@ -19,7 +21,8 @@ class RootContainer extends React.Component{
         createdAt: '',
         updatedAt: ''
       },
-      search: ''
+      search: '',
+      errors: []
     }
   }
 
@@ -31,6 +34,75 @@ class RootContainer extends React.Component{
     // console.log(accountId);
     this.props.DeleteAccount(accountId)
   }
+
+  passStrength(password) {
+    this.setState({
+       errors: [
+         {
+           status: false,
+           text: 'Password should contain atleast 1 Uppercase character'
+         },
+         {
+           status: false,
+           text: 'Password should contain atleast 1 Lowercase character'
+         },
+         {
+           status: false,
+           text: 'Password should contain atleast 1 Special Character (#$@!&%^*-+?)'
+         },
+         {
+           status: false,
+           text: 'Password should contain atleast 1 Number'
+         },
+         {
+           status: false,
+           text: 'Password length should more that 5 character'
+         }
+       ]
+     })
+
+     const upperCase = /[A-Z]/
+     const lowerCase = /[a-z]/
+     const specialChar = /[#$@!&%^*-+)]/
+     const number = /\d/
+     const passwordAuth = password.split("")
+
+     if (passwordAuth.length >= 5) {
+       this.setState(function(state) {
+         state.errors[4].status = true
+       })
+     }
+
+     passwordAuth.map((chr) => {
+       if (upperCase.test(chr)) {
+         return (
+           this.setState(function(state) {
+             state.errors[0].status = true
+           })
+         )
+       } else if (lowerCase.test(chr)) {
+         return (
+           this.setState(function(state) {
+             state.errors[1].status = true
+           })
+         )
+       } else if (specialChar.test(chr)) {
+         return (
+           this.setState(function(state) {
+             state.errors[2].status = true
+           })
+         )
+       } else if (number.test(chr)) {
+         return (
+           this.setState(function(state) {
+             state.errors[3].status = true
+           })
+         )
+       }
+
+       return chr
+     })
+   }
 
   handleSetState = (index) => {
     // yang di state ikut kerubah
@@ -50,6 +122,9 @@ class RootContainer extends React.Component{
         updatedAt: new Date()
       }
     })
+
+    this.passStrength(this.props.accounts[index].password)
+    // console.log(passwordAuth);
   }
 
   handleInput = (e) => {
@@ -58,6 +133,7 @@ class RootContainer extends React.Component{
 
     this.setState(state)
 
+    this.passStrength(this.state.account.password)
     // console.log(this.state);
   }
 
@@ -67,6 +143,8 @@ class RootContainer extends React.Component{
     // this.state.account.updatedAt = new Date()
     // console.log(this.state.account);s
     this.props.EditAccount(this.state.account.id, this.state.account)
+
+    document.getElementById('close').click()
   }
 
   handleSearch = (e) => {
@@ -110,13 +188,13 @@ class RootContainer extends React.Component{
               return (
                 <tr className="success" key={index}>
                   <td>{ index+1 }.</td>
-                  <td>{ account.url }</td>
+                  <td><a href={ account.url } target="_blank">{ account.url } </a></td>
                   <td>{ account.username }</td>
                   <td>{ account.password }</td>
                   <td>{ account.createdAt.split("T")[0].split("-").reverse().join("/") }</td>
                   <td>{ account.updatedAt.split("T")[0].split("-").reverse().join("/") }</td>
                   <td>
-                    <button className="btn btn-primary" onClick={ () => this.handleSetState(index) } data-toggle="modal" data-target="#MyModal">Edit</button>
+                    <button className="btn btn-primary" id="editButton" onClick={ () => this.handleSetState(index) } data-toggle="modal" data-target="#MyModal">Edit</button>
                     <button className="btn btn-danger" onClick={ () => this.handleDelete(account.id) }>Delete</button>
                   </td>
                 </tr>
@@ -134,7 +212,7 @@ class RootContainer extends React.Component{
                 <h4 className="modal-title">Edit Account</h4>
               </div>
               <div className="modal-body">
-                <form onSubmit={ this.handleEditAccount }>
+                <form id="editForm" onSubmit={ this.handleEditAccount }>
                   <h3>Input Form</h3><br />
                   <div className="form-group has-success">
                     <label className="control-label" htmlFor="inputSuccess">URL</label>
@@ -147,6 +225,22 @@ class RootContainer extends React.Component{
                   <div className="form-group has-success">
                     <label className="control-label" htmlFor="inputSuccess">Password</label>
                     <input className="form-control text-center" id="inputSuccess" name="password" type="password" value={ password } onChange={ this.handleInput } required />
+                    <h6>Password Strength :</h6>
+                    <table className="col-md-offset-5" style={{"marginBottom": 20+"px"}}>
+                      <tbody>
+                      { this.state.errors.map((error, index) => {
+                        return (
+                          <tr key={index}>
+                            {error.status ?
+                            <td style={{"paddingRight": 10+"px"}}><img src={ trueImg } alt='' width="25px" /></td> :
+                            <td style={{"paddingRight": 10+"px"}}><img src={ falseImg } alt='' width="25px" /></td>
+                            }
+                            <td className = "text-left">{ error.text }</td>
+                          </tr>
+                        )
+                      }) }
+                      </tbody>
+                    </table>
                   </div>
                   <div className="form-group">
                     <div className="col-md-12 text-center">
@@ -156,7 +250,7 @@ class RootContainer extends React.Component{
                 </form>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="close" className="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
 

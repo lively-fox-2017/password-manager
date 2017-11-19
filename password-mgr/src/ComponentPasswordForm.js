@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+
 
 class ComponentPasswordForm extends Component {
   constructor(){
@@ -77,6 +79,7 @@ class ComponentPasswordForm extends Component {
             <div className="col-lg-10 col-lg-offset-2">
               <button type="reset" className="btn btn-default">Cancel</button>
               <button type="submit" className="btn btn-primary">Save</button>
+              <Link to="/search"  className="btn btn-info">Search</Link>
             </div>
           </div>
         </fieldset>

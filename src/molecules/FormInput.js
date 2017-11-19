@@ -8,6 +8,11 @@ class FormInput extends Component {
       formColor: 'is-success',
       isNeutral: true,
     }
+    this.changeHandler = this.changeHandler.bind(this);
+  }
+
+  changeHandler(event) {
+    this.props.changeHandler(event.target.value)
   }
 
   setForm() {
@@ -30,9 +35,9 @@ class FormInput extends Component {
     });
   }
 
-  componentWillReceiveProps() {
-    this.setForm();
-  }
+  // componentWillReceiveProps() {
+  //   this.setForm();
+  // }
 
   componentDidMount() {
     this.setForm();
@@ -44,7 +49,7 @@ class FormInput extends Component {
         <div className="field">
         <label className="label">{this.props.label}</label>
         <div className="control has-icons-left has-icons-right">
-          <input className={`input ${this.state.formColor}`} type={this.props.type} placeholder={this.props.placeholder} />
+          <input value={this.props.val} onChange={this.changeHandler} type="text" className={`input ${this.state.formColor}`} type={this.props.type} placeholder={this.props.placeholder} />
           <span className="icon is-small is-left">
             <i className={`fa ${this.props.fa}`}></i>
           </span>

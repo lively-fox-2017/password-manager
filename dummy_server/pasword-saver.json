@@ -1,22 +1,28 @@
 {
   "account": [
     {
+      "createdAt": "09:32:48 GMT+0700 (WIB)",
+      "updatedAt": "",
       "username": "nncrawler",
       "password": "nncrawler",
-      "url": "donkeydonkeydonkey.com",
-      "id": "asd2d22"
+      "url": "github.com",
+      "id": "HkFLawAkf"
     },
     {
-      "username": "admin",
-      "password": "admin",
-      "url": "belitopikuy.com",
-      "id": "m1aso"
+      "createdAt": "Sun, 19 Nov 2017 04:27:02 GMT",
+      "updatedAt": "",
+      "username": "asd",
+      "password": "asd",
+      "url": "asd",
+      "id": "By1QOY0Jf"
     },
     {
-      "username": "nnc",
-      "password": "nnc",
-      "url": "facebook.com",
-      "id": "1oiwjdlaks"
+      "createdAt": "Sun, 19 Nov 2017 04:27:09 GMT",
+      "updatedAt": "Sun, 19 Nov 2017 04:34:03 GMT",
+      "username": "asdasd",
+      "password": "asdasd",
+      "url": "asdasd",
+      "id": "r1SmdFCJf"
     }
   ]
 }

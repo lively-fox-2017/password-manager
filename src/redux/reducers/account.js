@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import accountCrud from '../actions/account';
 
 function account(state=[], action) {
@@ -10,6 +9,4 @@ function account(state=[], action) {
   }
 }
 
-export default combineReducers({
-  account,
-})
+export default account;

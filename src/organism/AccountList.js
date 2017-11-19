@@ -2,24 +2,30 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Panel, Control, Icon, Input, Table, Button } from 'reactbulma';
+import accountActions from '../redux/actions/account'
+import socMedAccountFormActions from '../redux/actions/SocMedAccountForm';
 
 class AccountList extends Component {
   constructor(props) {
     super(props);
   }
 
+  editAction() {
+
+  }
+
   accountSetup() {
     const template = []
     for (const account of this.props.accounts) {
       template.push((
-        <Table.Tr>
+        <Table.Tr key={account.id}>
           <Table.Td>{account.url}</Table.Td>
           <Table.Td>{account.username}</Table.Td>
           <Table.Td>{account.password}</Table.Td>
           <Table.Td>{account.createdAt}</Table.Td>
-          <Table.Td>{account.createdAt}</Table.Td>
-          <Table.Td><Link to="/edit-account/1787"><Button primary inverted><i className="fa fa-pencil" aria-hidden="true">Edit</i></Button></Link></Table.Td>
-          <Table.Td onClick={this.deleteAccount}><Button danger inverted><i className="fa fa-trash-o" aria-hidden="true">Delete</i></Button></Table.Td>
+          <Table.Td>{account.updatedAt}</Table.Td>
+          <Table.Td onClick={()=>{this.props.populateForm(account.username, account.password, account.url)}}><Link to={{pathname: `/edit-account/${account.id}`, createdAt: account.createdAt}} params={{ createdAt: account.createdAt }}><Button primary inverted><i className="fa fa-pencil" aria-hidden="true">Edit</i></Button></Link></Table.Td>
+          <Table.Td onClick={()=>{this.props.deleteAccount(account.id)}}><Button danger inverted><i className="fa fa-trash-o" aria-hidden="true">Delete</i></Button></Table.Td>
         </Table.Tr>
       ))
     }
@@ -31,7 +37,7 @@ class AccountList extends Component {
   }
 
   componentDidUpdate() {
-    this.accountSetup()
+    this.accountSetup();
   }
 
   render() {
@@ -77,6 +83,17 @@ function mapStateToProps(state) {
   }
 }
 
-const mappedAccountList = connect(mapStateToProps, null)(AccountList)
+function mapActionsToProps(dispatch) {
+  return {
+    deleteAccount: (id) => {
+      dispatch(accountActions.deleteAccount(id));
+    },
+    populateForm: (username, password, url) => {
+      dispatch(socMedAccountFormActions.populateToEdit(username, password, url));
+    }
+  }
+}
+
+const mappedAccountList = connect(mapStateToProps, mapActionsToProps)(AccountList)
 
 export default mappedAccountList;

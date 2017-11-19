@@ -1,7 +1,12 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import account from './reducers/account';
+import socMedAccountForm from './reducers/socMedAccountForm';
 
-const store = createStore(account, applyMiddleware(thunk));
+const reducers = combineReducers({
+  account,
+  socMedAccountForm,
+})
+const store = createStore(reducers, applyMiddleware(thunk));
 
 export default store;

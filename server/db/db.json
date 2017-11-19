@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": "6c8b4adc-f113-5c35-a18c-1db9e55c9dbc",
+      "url": "http://hacktiv8.com",
+      "username": "munawirali",
+      "password": "munawirali",
+      "createdAt": "2017-11-19T10:58:32.074Z",
+      "updatedAt": "2017-11-19T23:37:47.578Z"
+    },
+    {
+      "id": "f5c69c55-7ea7-56d9-aa7f-ff61a0f289ec",
+      "url": "http://hacktiv8.com",
+      "username": "xcode",
+      "password": "xcode",
+      "createdAt": "2017-11-19T10:59:42.148Z",
+      "updatedAt": "2017-11-19T23:38:20.041Z"
+    }
+  ]
+}

@@ -48,3 +48,26 @@ export const createPassword = (newPassword, callback) => {
       });
   };
 };
+
+export const deletePasswordById = (id, callback) => {
+  return (dispatch, getState) => {
+    window
+      .$server
+      .delete('/passwords/' + id)
+      .then(({ data }) => {
+        const passwords = getState()
+                          .passwordReducer
+                          .passwords
+                          .filter((password) => {
+                            return password.id !== id;
+                          });
+
+        dispatch(fetchPasswords(passwords));
+
+        callback();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};

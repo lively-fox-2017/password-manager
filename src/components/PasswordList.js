@@ -68,7 +68,7 @@ class PasswordList extends Component {
             <input type="text" name="keyword" placeholder="Search by URL" className="form-control search-text-box" onChange={ this.search }/>
           </div>
           <div className="pull-right">
-            <button className="btn btn-primary margin-bot-right-15" onClick={ this.showPasswordModal }>
+            <button className="btn btn-primary margin-bot-right-15" onClick={  this.showPasswordModal }>
               <span className="glyphicon glyphicon-plus"></span>
             </button>
           </div>
@@ -90,9 +90,9 @@ class PasswordList extends Component {
                   </thead>
                   <tbody>
                     {
-                      passwords.map((password, index) => {
+                      passwords.map((password) => {
                         return (
-                          <PasswordItem password={ password } key={ index }/>
+                          <PasswordItem password={ password } key={ password.id }/>
                         );
                       })
                     }

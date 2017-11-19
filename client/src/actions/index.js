@@ -30,10 +30,19 @@ export const getUser = (getuser) => {
           id: i,
           url: snap.val()[i].url,
           username: snap.val()[i].username,
-          password: snap.val()[i].password
+          password: snap.val()[i].password,
+          createat: snap.val()[i].createat,
+          editedat: snap.val()[i].editedat
         })
       }
       dispatch(getUserSuccess(objek))
     })
+  };
+};
+
+export const hapususer = (id) => {
+
+  return (dispatch) => {
+    return firebase.database().ref('passwordmanager/user/' + id).remove();
   };
 };

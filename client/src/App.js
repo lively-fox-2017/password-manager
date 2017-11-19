@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {addUser, getUser} from './actions/index'
+import {addUser, getUser, hapususer} from './actions/index'
 import {connect} from 'react-redux'
 
 class App extends Component {
@@ -42,11 +42,23 @@ class App extends Component {
     });
   }
 
+  tanggal (date) {
+    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
+
+
   pushtodatabase (event) {
     let obj = {
       url: this.state.inpurl,
       username: this.state.inpusername,
-      password: this.state.inppassword
+      password: this.state.inppassword,
+      createat: this.tanggal(new Date()),
+      editedat: this.tanggal(new Date())
     }
     this.props.addUser(obj)
     console.log(obj)
@@ -54,7 +66,10 @@ class App extends Component {
     event.preventDefault();
   }
 
-  change
+  hapus (id) {
+    console.log('makan');
+    this.props.hapususer(id)
+  }
 
   render() {
     console.log('dirumah', this.props.usersuccessget)
@@ -98,6 +113,10 @@ class App extends Component {
           <th>Url</th>
           <th>Username</th>
           <th>Password</th>
+          <th>Tanggal Daftar</th>
+          <th>tanggal Edit</th>
+          <th>Edit</th>
+          <th>Delete</th>
           </tr>
         </thead>
 
@@ -105,9 +124,13 @@ class App extends Component {
           {this.props.usersuccessget.map((data, index)=> {
             return(
               <tr>
-              <td>{data.url}</td>
+              <td><a href={data.url}>{data.url}</a></td>
               <td>{data.username}</td>
               <td>{data.password}</td>
+              <td>{data.createat}</td>
+              <td>{data.editedat}</td>
+              <td>Edit</td>
+              <td><a href="#"><p onClick={()=> this.hapus(data.id)}>Delete</p></a></td>
               </tr>
             )
           })}
@@ -132,7 +155,8 @@ const mapState = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addUser: (obj) => dispatch(addUser(obj)),
-    getUser: () => dispatch(getUser())
+    getUser: () => dispatch(getUser()),
+    hapususer: (id) => dispatch(hapususer(id))
   }
 }
 

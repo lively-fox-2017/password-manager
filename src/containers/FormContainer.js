@@ -4,16 +4,20 @@ import owasp from 'owasp-password-strength-test'
 import { connect } from 'react-redux'
 
 import FieldComponent from '../components/FieldComponent'
-
+import { fetchAccounts } from '../actions/AccountActions'
 
 class FormContainer extends Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = {
 
     }
+  }
+
+  componentWillMount () {
+    this.props.fetchAccounts()
   }
 
   passwordStrength = value => {
@@ -76,13 +80,19 @@ class FormContainer extends Component {
 
 }
 
-const mapStateToProps = () => {
-
+const mapStateToProps = (state) => {
+  return {
+    accounts: state.accountReducer.accounts
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchAccounts: () => dispatch(fetchAccounts())
+  }
 }
 
 FormContainer = reduxForm({
   form: 'password_manager'
-})
-(FormContainer)
+})(FormContainer)
 
-export default (FormContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(FormContainer)

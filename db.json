@@ -1,0 +1,44 @@
+{
+  "accounts": [
+    {
+      "id": "ad1917ac-df09-573b-ba34-1fb0a91f8aca",
+      "url": "https://gmail.com",
+      "username": "terrathe2",
+      "password": "terrathe2",
+      "createdAt": "2017-11-18T12:40:12.325Z",
+      "updatedAt": "2017-11-19T12:25:41.860Z"
+    },
+    {
+      "id": "3e6e142a-2f04-51a8-a744-ff6f64e3a60a",
+      "url": "https://facebook.com",
+      "username": "terrathe4",
+      "password": "terrathe4",
+      "createdAt": "2017-11-18T14:01:36.610Z",
+      "updatedAt": ""
+    },
+    {
+      "id": "29232ea9-5481-5d7c-ab50-e4f37da44b05",
+      "url": "https://hacktiv8slack.com",
+      "username": "terrathe2",
+      "password": "terrathe2",
+      "createdAt": "2017-11-18T14:01:56.531Z",
+      "updatedAt": "2017-11-19T12:06:17.503Z"
+    },
+    {
+      "id": "9a6f1aeb-b009-5f26-b613-8557bcdb3297",
+      "url": "https://github.com",
+      "username": "putra.redha",
+      "password": "Putr4redh@",
+      "createdAt": "2017-11-19T10:40:30.212Z",
+      "updatedAt": "2017-11-19T12:14:06.730Z"
+    },
+    {
+      "id": "89005481-05b7-5f3e-97b8-22bcae803174",
+      "url": "https://twitter.com",
+      "username": "redhaputra",
+      "password": "redhaputra",
+      "createdAt": "2017-11-19T11:25:12.878Z",
+      "updatedAt": "2017-11-19T12:27:39.101Z"
+    }
+  ]
+}

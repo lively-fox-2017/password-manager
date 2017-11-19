@@ -8,15 +8,24 @@ import socMedAccountFormActions from '../redux/actions/SocMedAccountForm';
 class AccountList extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      filter: '',
+    }
+    this.filterByWebsite = this.filterByWebsite.bind(this);
+    this.accountSetup = this.accountSetup.bind(this);
   }
 
-  editAction() {
-
+  filterByWebsite(event) {
+    this.setState({ filter: event.target.value })
   }
 
   accountSetup() {
-    const template = []
-    for (const account of this.props.accounts) {
+    const template = [];
+    let accounts = this.props.accounts;
+    if (this.state.filter !== '') {
+      accounts = accounts.filter((item) => {if(new RegExp(this.state.filter, 'i').exec(item.url)){return item}})
+    }
+    for (const account of accounts) {
       template.push((
         <Table.Tr key={account.id}>
           <Table.Td>{account.url}</Table.Td>
@@ -49,10 +58,8 @@ class AccountList extends Component {
 
         <Panel.Block>
          <Control hasIconsLeft>
-           <Input small type="text" placeholder="Search"/>
-           <Icon small left>
-             <i className="fa fa-search"/>
-           </Icon>
+           <i className="fa fa-search"/>
+           <input onChange={this.filterByWebsite} value={this.state.filter} small type="text" placeholder="Search website"/>
          </Control>
        </Panel.Block>
        <Link to="/add-account"><i className="fa fa-plus" aria-hidden="true">Add Account</i></Link>

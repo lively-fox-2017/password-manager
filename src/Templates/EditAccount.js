@@ -14,7 +14,8 @@ class AddAccount extends Component {
   updateAccount(username, password, url) {
     const id = this.props.match.params.id;
     const createdAt = this.props.location.createdAt;
-    this.props.updateAccount(id, username, password, url, createdAt)
+    this.props.updateAccount(id, username, password, url, createdAt);
+    this.props.history.replace({pathname: '/'})
   }
 
   componentDidMount() {

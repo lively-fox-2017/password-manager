@@ -18,7 +18,12 @@ class Formulirbaru extends Component {
       inpusername: this.props.usersatuan.username,
       inppassword: this.props.usersatuan.password,
       inpcreateat: this.props.usersatuan.createat,
-      inpeditedat: ''
+      inpeditedat: '',
+      jumlahmin: false,
+      kapital: false,
+      karakterunik: false,
+      angka: false,
+      kecil: false
     }
     this.changeUrl = this.changeUrl.bind(this);
     this.changeUsername = this.changeUsername.bind(this);
@@ -47,6 +52,50 @@ class Formulirbaru extends Component {
 
   changePassword (event) {
     this.setState({inppassword: event.target.value});
+
+    var jumlah = new RegExp("^(?=.{5,})")
+    var hurufkapital = new RegExp("^(?=.*[A-Z])")
+    var hurufkecil = new RegExp("^(?=.*[a-z])")
+    var karakterunik = new RegExp("^(?=.*[!@#\$%\^&\*])")
+    var angka = new RegExp("^(?=.*[0-9])")
+
+    var jumlahTrue = jumlah.test(this.state.inppassword)
+    var hurufTrue = hurufkapital.test(this.state.inppassword)
+    var hurufKecil = hurufkecil.test(this.state.inppassword)
+    var karakterTrue = karakterunik.test(this.state.inppassword)
+    var angkaTrue = angka.test(this.state.inppassword)
+
+    if (jumlahTrue == true) {
+      this.setState({jumlahmin: true});
+    }
+    if (hurufTrue == true) {
+      this.setState({kapital: true});
+    }
+    if (hurufKecil == true) {
+      this.setState({kecil: true});
+    }
+    if (karakterTrue == true) {
+      this.setState({karakterunik: true});
+    }
+    if (angkaTrue == true) {
+      this.setState({angka: true});
+    }
+    if (hurufKecil == false) {
+      this.setState({kecil: false});
+    }
+    if (jumlahTrue == false) {
+      this.setState({jumlahmin: false});
+    }
+    if (hurufTrue == false) {
+      this.setState({kapital: false});
+    }
+    if (karakterTrue == false) {
+      this.setState({karakterunik: false});
+    }
+    if (angkaTrue == false) {
+      this.setState({angka: false});
+    }
+
   }
 
   setDefault (event) {
@@ -73,19 +122,24 @@ class Formulirbaru extends Component {
 
 
   pushtodatabase (event) {
-    console.log('amankan kawan')
+    // console.log('amankan kawan')
     // this.props.history.push("/someNewPage");
-    let obj = {
-      id: this.state.inpid,
-      url: this.state.inpurl,
-      username: this.state.inpusername,
-      password: this.state.inppassword,
-      createat: this.state.inpcreateat,
-      editedat: this.tanggal(new Date())
+    if (this.state.jumlahmin && this.state.kapital && this.state.karakterunik && this.state.angka && this.state.kecil) {
+      let obj = {
+        id: this.state.inpid,
+        url: this.state.inpurl,
+        username: this.state.inpusername,
+        password: this.state.inppassword,
+        createat: this.state.inpcreateat,
+        editedat: this.tanggal(new Date())
+      }
+      this.props.editUser(obj)
+      this.setDefault()
+      event.preventDefault();
+    } else {
+      this.setDefauld()
+      event.preventDefault();
     }
-    this.props.editUser(obj)
-    this.setDefault()
-    event.preventDefault();
   }
 
   render() {
@@ -125,6 +179,59 @@ class Formulirbaru extends Component {
           </div>
         </form>
 
+        <div>
+          <div className="col-md-3">
+
+          </div>
+
+          <div className="col-md-6 serach">
+          <div>
+          <div className="col-md-4">
+          {this.state.jumlahmin ? <input type="checkbox" name="vehicle" value="Car" checked disabled/> : <input type="checkbox" name="vehicle" value="Car" disabled/>}
+          </div>
+          <div className="col-md-6">
+          <p>Password harus berjumlah 6 karakter</p>
+          </div>
+          </div>
+
+          <div>
+          <div className="col-md-4">
+          {this.state.kapital ? <input type="checkbox" name="vehicle" value="Car" checked disabled/> : <input type="checkbox" name="vehicle" value="Car" disabled/>}
+          </div>
+          <div className="col-md-8">
+          <p>Password harus memiliki huruf kapita minimal 2 karakter</p>
+          </div>
+          </div>
+
+          <div>
+          <div className="col-md-4">
+          {this.state.karakterunik ? <input type="checkbox" name="vehicle" value="Car" checked disabled/> : <input type="checkbox" name="vehicle" value="Car" disabled/>}
+          </div>
+          <div className="col-md-8">
+          <p>Password harus memiliki karakter unik minimal 2 karakter</p>
+          </div>
+          </div>
+
+          <div>
+          <div className="col-md-4">
+          {this.state.angka ? <input type="checkbox" name="vehicle" value="Car" checked disabled/> : <input type="checkbox" name="vehicle" value="Car" disabled/>}
+          </div>
+          <div className="col-md-8">
+          <p>Password harus memiliki angka minimal 2 karakter</p>
+          </div>
+          </div>
+
+          <div>
+          <div className="col-md-4">
+          {this.state.kecil ? <input type="checkbox" name="vehicle" value="Car" checked disabled/> : <input type="checkbox" name="vehicle" value="Car" disabled/>}
+          </div>
+          <div className="col-md-8">
+          <p>Password harus memiliki huruf kecil minimal 2 karakter</p>
+          </div>
+          </div>
+
+          </div>
+        </div>
 
       </div>
       </div>

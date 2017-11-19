@@ -10,7 +10,7 @@ class Formulir extends Component {
       inpurl: '',
       inpusername: '',
       inppassword: '',
-      checklower: '',
+      // checklower: '',
       jumlahmin: false,
       kapital: false,
       karakterunik: false,
@@ -37,46 +37,49 @@ class Formulir extends Component {
 
   changePassword (event) {
     this.setState({inppassword: event.target.value});
-    // var jumlah = new RegExp("^(?=.{5,})")
-    // var hurufkapital = new RegExp("^(?=.*[A-Z])")
-    // var hurufkecil = new RegExp("^(?=.*[a-z])")
-    // var karakterunik = new RegExp("^(?=.*[!@#\$%\^&\*])")
-    // var angka = new RegExp("^(?=.*[0-9])")
-    // var jumlahTrue = jumlah.test(this.state.inppassword)
-    // var hurufTrue = hurufkapital.test(this.state.inppassword)
-    // var hurufKecil = hurufkecil.test(this.state.inppassword)
-    // var karakterTrue = karakterunik.test(this.state.inppassword)
-    // var angkaTrue = angka.test(this.state.inppassword)
-    //
-    // if (jumlahTrue == true) {
-    //   this.setState({jumlahmin: true});
-    // }
-    // else if (hurufTrue == true) {
-    //   this.setState({kapital: true});
-    // }
-    // else if (hurufKecil == true) {
-    //   this.setState({kecil: true});
-    // }
-    // else if (karakterTrue == true) {
-    //   this.setState({karakterunik: true});
-    // }
-    // else if (angkaTrue == true) {
-    //   this.setState({angka: true});
-    // }
-    // else if (jumlahTrue == false) {
-    //   this.setState({jumlahmin: false});
-    // }
-    // else if (hurufTrue == false) {
-    //   this.setState({kapital: false});
-    // }
-    // else if (karakterTrue == false) {
-    //   this.setState({karakterunik: false});
-    // }
-    // else if (angkaTrue == false) {
-    //   this.setState({angka: false});
-    // } else {
-    //
-    // }
+
+    var jumlah = new RegExp("^(?=.{5,})")
+    var hurufkapital = new RegExp("^(?=.*[A-Z])")
+    var hurufkecil = new RegExp("^(?=.*[a-z])")
+    var karakterunik = new RegExp("^(?=.*[!@#\$%\^&\*])")
+    var angka = new RegExp("^(?=.*[0-9])")
+
+    var jumlahTrue = jumlah.test(this.state.inppassword)
+    var hurufTrue = hurufkapital.test(this.state.inppassword)
+    var hurufKecil = hurufkecil.test(this.state.inppassword)
+    var karakterTrue = karakterunik.test(this.state.inppassword)
+    var angkaTrue = angka.test(this.state.inppassword)
+
+    if (jumlahTrue == true) {
+      this.setState({jumlahmin: true});
+    }
+    if (hurufTrue == true) {
+      this.setState({kapital: true});
+    }
+    if (hurufKecil == true) {
+      this.setState({kecil: true});
+    }
+    if (karakterTrue == true) {
+      this.setState({karakterunik: true});
+    }
+    if (angkaTrue == true) {
+      this.setState({angka: true});
+    }
+    if (hurufKecil == false) {
+      this.setState({kecil: false});
+    }
+    if (jumlahTrue == false) {
+      this.setState({jumlahmin: false});
+    }
+    if (hurufTrue == false) {
+      this.setState({kapital: false});
+    }
+    if (karakterTrue == false) {
+      this.setState({karakterunik: false});
+    }
+    if (angkaTrue == false) {
+      this.setState({angka: false});
+    }
 
     // let objek = {
     //   jumlahmin: this.state.jumlahmin,
@@ -108,32 +111,6 @@ class Formulir extends Component {
 
 
   pushtodatabase (event) {
-    var jumlah = new RegExp("^(?=.{5,})")
-    var hurufkapital = new RegExp("^(?=.*[A-Z])")
-    var hurufkecil = new RegExp("^(?=.*[a-z])")
-    var karakterunik = new RegExp("^(?=.*[!@#\$%\^&\*])")
-    var angka = new RegExp("^(?=.*[0-9])")
-
-    var jumlahTrue = jumlah.test(this.state.inppassword)
-    var hurufTrue = hurufkapital.test(this.state.inppassword)
-    var hurufKecil = hurufkecil.test(this.state.inppassword)
-    var karakterTrue = karakterunik.test(this.state.inppassword)
-    var angkaTrue = angka.test(this.state.inppassword)
-
-    if (jumlahTrue == true) {
-      this.setState({jumlahmin: true});
-    }
-    else if (hurufTrue == true) {
-      this.setState({kapital: true});
-    }
-    else if (hurufKecil == true) {
-      this.setState({kecil: true});
-    }
-    else if (karakterTrue == true) {
-      this.setState({karakterunik: true});
-    }
-    else if (angkaTrue == true) {
-      this.setState({angka: true});}
 
     if (this.state.jumlahmin && this.state.kapital && this.state.karakterunik && this.state.angka && this.state.kecil) {
       let obj = {

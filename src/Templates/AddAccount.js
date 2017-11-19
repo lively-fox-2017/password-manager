@@ -4,6 +4,7 @@ import { Button, Notification, Delete } from 'reactbulma';
 import socMedAccountFormActions from '../redux/actions/SocMedAccountForm';
 import accountActions from '../redux/actions/account';
 import SocMedAccountForm from '../organism/SocMedAccountForm';
+import PasswordValidator from '../organism/PasswordValidator';
 
 class AddAccount extends Component {
   constructor(props) {
@@ -32,8 +33,8 @@ class AddAccount extends Component {
   render() {
     return (
       <div>
-        <div class="columns is-mobile">
-          <div class="column is-4 is-offset-4">
+        <div className="columns is-mobile">
+          <div className="column is-4 is-offset-2">
             <SocMedAccountForm clickHandler={this.storeAccount} buttonName="Add Account" buttonIcon="fa-plus" title="Add Account"/>
             <br/>
             {(this.state.isStored) &&
@@ -43,9 +44,19 @@ class AddAccount extends Component {
               </Notification>
             }
           </div>
+          <div className="column is-4">
+            <br/><br/>
+            <PasswordValidator password={this.props.password}/>
+          </div>
         </div>
       </div>
     )
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    password: state.socMedAccountForm.password,
   }
 }
 
@@ -60,4 +71,4 @@ function mapActionsToProps(dispatch) {
   }
 }
 
-export default connect(null, mapActionsToProps)(AddAccount);
+export default connect(mapStateToProps, mapActionsToProps)(AddAccount);

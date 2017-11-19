@@ -6,6 +6,7 @@ import {
   fetchSearches
 } from '../actions/passwordActions';
 import PasswordModal from './PasswordModal';
+import EditPasswordModal from './EditPasswordModal';
 import PasswordItem from './PasswordItem';
 
 const mapStateToProps = (state) => ({
@@ -23,11 +24,35 @@ class PasswordList extends Component {
     super(props);
     this.state = {
       passwordModalShow: false,
+      editPasswordModalShow: false,
+      password: {
+        id: null,
+        url: '',
+        username: '',
+        password: '',
+        created_at: '',
+        updated_at: '',
+      },
       keyword: '',
     };
+    this.changePasswordValue = this.changePasswordValue.bind(this);
     this.search = this.search.bind(this);
     this.showPasswordModal = this.showPasswordModal.bind(this);
     this.hidePasswordModal = this.hidePasswordModal.bind(this);
+    this.showEditPasswordModal = this.showEditPasswordModal.bind(this);
+    this.hideEditPasswordModal = this.hideEditPasswordModal.bind(this);
+  }
+
+  changePasswordValue(key, value) {
+    const password = this.state.password;
+
+    password[key] = value;
+
+    console.log(password);
+
+    this.setState({
+      password
+    });
   }
 
   componentDidMount() {
@@ -47,7 +72,7 @@ class PasswordList extends Component {
 
   showPasswordModal() {
     this.setState({
-      passwordModalShow: true,
+      passwordModalShow: true
     });
   }
 
@@ -57,10 +82,32 @@ class PasswordList extends Component {
     });
   }
 
+  showEditPasswordModal(password = this.state.password) {
+    this.setState({
+      editPasswordModalShow: true,
+      password: password,
+    });
+  }
+
+  hideEditPasswordModal() {
+    this.setState({
+      editPasswordModalShow: false,
+      password: {
+        id: null,
+        url: '',
+        username: '',
+        password: '',
+        created_at: '',
+        updated_at: '',
+      },
+    });
+  }
+
   render() {
     const passwords = this.state.keyword.length ?
                       this.props.searches :
                       this.props.passwords;
+
     return (
       <div>
         <div className="row">
@@ -68,7 +115,7 @@ class PasswordList extends Component {
             <input type="text" name="keyword" placeholder="Search by URL" className="form-control search-text-box" onChange={ this.search }/>
           </div>
           <div className="pull-right">
-            <button className="btn btn-primary margin-bot-right-15" onClick={  this.showPasswordModal }>
+            <button className="btn btn-primary margin-bot-right-15" onClick={ () => this.showPasswordModal('create') }>
               <span className="glyphicon glyphicon-plus"></span>
             </button>
           </div>
@@ -92,7 +139,10 @@ class PasswordList extends Component {
                     {
                       passwords.map((password) => {
                         return (
-                          <PasswordItem password={ password } key={ password.id }/>
+                          <PasswordItem
+                            showEditPasswordModal={ this.showEditPasswordModal }
+                            password={ password }
+                            key={ password.id }/>
                         );
                       })
                     }
@@ -107,6 +157,11 @@ class PasswordList extends Component {
         <PasswordModal
           show={ this.state.passwordModalShow }
           onHide={ this.hidePasswordModal } />
+        <EditPasswordModal
+          password={ this.state.password }
+          changePasswordValue={ this.changePasswordValue }
+          show={ this.state.editPasswordModalShow }
+          onHide={ this.hideEditPasswordModal }/>
       </div>
     );
   }

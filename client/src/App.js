@@ -1,113 +1,77 @@
 import React, { Component } from 'react';
 import './App.css';
-import {addUser, getUser, hapususer} from './actions/index'
+import {addUser, getUser, hapususer, getUserSatuan, knop} from './actions/index'
 import {connect} from 'react-redux'
+import Formulir from './components/formbaru'
+import Formulirlama from './components/formlama'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
+// import { withRouter } from 'react-router';
+// import { browserHistory } from 'react-router';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      inpurl: '',
-      inpusername: '',
-      inppassword: ''
     }
-    this.changeUrl = this.changeUrl.bind(this);
-    this.changeUsername = this.changeUsername.bind(this);
-    this.changePassword = this.changePassword.bind(this);
-
-    this.pushtodatabase = this.pushtodatabase.bind(this);
   }
 
   componentWillMount () {
     this.props.getUser()
   }
 
-  changeUrl (event) {
-    this.setState({inpurl: event.target.value});
-  }
-
-  changeUsername (event) {
-    this.setState({inpusername: event.target.value});
-  }
-
-  changePassword (event) {
-    this.setState({inppassword: event.target.value});
-  }
-
-  setDefauld (event) {
-    this.setState({
-      inppassword: '',
-      inpusername: '',
-      inpurl: ''
-    });
-  }
-
-  tanggal (date) {
-    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var day = date.getDate();
-    var monthIndex = date.getMonth();
-    var year = date.getFullYear();
-
-    return day + ' ' + monthNames[monthIndex] + ' ' + year;
-  }
-
-
-  pushtodatabase (event) {
-    let obj = {
-      url: this.state.inpurl,
-      username: this.state.inpusername,
-      password: this.state.inppassword,
-      createat: this.tanggal(new Date()),
-      editedat: this.tanggal(new Date())
-    }
-    this.props.addUser(obj)
-    console.log(obj)
-    this.setDefauld()
-    event.preventDefault();
-  }
-
   hapus (id) {
-    console.log('makan');
+    // console.log('makan');
     this.props.hapususer(id)
   }
 
+  edited (id) {
+    this.props.getUserSatuan(id)
+  }
+
+  myFunction () {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
   render() {
-    console.log('dirumah', this.props.usersuccessget)
     return (
+      <Router>
       <div className="App">
       <div className="container">
 
-        <form className="form-horizontal" onSubmit={this.pushtodatabase}>
-          <div className="form-group">
-            <label htmlFor="inpurl" className="col-sm-2 control-label">Input Url</label>
-            <div className="col-sm-10">
-              <input type="text" className="form-control" id="inpurl" value={this.state.inpurl} onChange={this.changeUrl}></input>
-            </div>
-          </div>
+      <Route exact path="/" render={(props) => ( <Formulir/> )}/>
+      <Route exact path="/:id" render={(props) => ( <Formulirlama/> )}/>
 
-          <div className="form-group">
-            <label htmlFor="inpusername" className="col-sm-2 control-label">Username</label>
-            <div className="col-sm-10">
-              <input type="text" className="form-control" id="inpusername" value={this.state.inpusername} onChange={this.changeUsername}></input>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="inppassword" className="col-sm-2 control-label">Password</label>
-            <div className="col-sm-10">
-              <input type="text" className="form-control" id="inppassword"  value={this.state.inppassword} onChange={this.changePassword}></input>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <div className="col-sm-offset-2 col-sm-10">
-              <input type="submit" value="Submit" />
-            </div>
-          </div>
-        </form>
+      <div>
+      <div className="col-md-3">
+      </div>
+      <div className="col-md-6">
+      <input className="form-control serach" type="text" id="myInput" onKeyUp={this.myFunction} placeholder="Search for username.."/>
+      </div>
+      </div>
 
 
-        <table className="table table-hover">
+      <div className="jarak">
+
+
+        <table className="table table-hover" id="myTable">
         <thead>
           <tr>
           <th>Url</th>
@@ -129,7 +93,7 @@ class App extends Component {
               <td>{data.password}</td>
               <td>{data.createat}</td>
               <td>{data.editedat}</td>
-              <td>Edit</td>
+              <td><Link to={'/' + data.id}><p onClick={()=> this.edited(data.id)}>Edit</p></Link></td>
               <td><a href="#"><p onClick={()=> this.hapus(data.id)}>Delete</p></a></td>
               </tr>
             )
@@ -137,16 +101,16 @@ class App extends Component {
         </tbody>
         </table>
 
-
+        </div>
 
       </div>
       </div>
+      </Router>
     );
   }
 }
 
 const mapState = state => {
-  // console.log(state.usersuccessget.usersuccessget.key)
   return {
     usersuccessget: state.usersuccessget.usersuccessget
   }
@@ -154,9 +118,9 @@ const mapState = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addUser: (obj) => dispatch(addUser(obj)),
     getUser: () => dispatch(getUser()),
-    hapususer: (id) => dispatch(hapususer(id))
+    hapususer: (id) => dispatch(hapususer(id)),
+    getUserSatuan: (id) => dispatch(getUserSatuan(id))
   }
 }
 

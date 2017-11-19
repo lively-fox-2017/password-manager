@@ -12,6 +12,20 @@ export const getUserSuccess = (value) => {
   }
 };
 
+export const getUserOneSuccess = (value) => {
+  return {
+    type: 'GET_ONE_USER',
+    value
+  }
+};
+
+export const knophandle = (value) => {
+  return {
+    type: 'GET_KNOP',
+    value
+  }
+};
+
 export const addUser = (adduser) => {
 
   return (dispatch) => {
@@ -40,9 +54,46 @@ export const getUser = (getuser) => {
   };
 };
 
-export const hapususer = (id) => {
+export const getUserSatuan = (id) => {
+  return (dispatch) => {
+    return firebase.database().ref().child('passwordmanager/user').child(id).on('value', snap => {
+      let objek = {
+        id: snap.key,
+        url: snap.val().url,
+        username: snap.val().username,
+        password: snap.val().password,
+        createat: snap.val().createat,
+        editedat: snap.val().editedat
+      }
+      dispatch(getUserOneSuccess(objek))
+    })
+  };
+};
 
+export const editUser = (data) => {
+
+  console.log('ini gokil', data.username)
+  return (dispatch) => {
+    return firebase.database().ref('passwordmanager/user/' + data.id).set({
+      username: data.username,
+      password: data.password,
+      editedat: data.editedat,
+      createat: data.createat,
+      url: data.url
+    });
+  }
+}
+
+export const hapususer = (id) => {
   return (dispatch) => {
     return firebase.database().ref('passwordmanager/user/' + id).remove();
   };
 };
+
+export const knop = (parameter) => {
+  return (dispatch) => {
+    parameter = !parameter
+    console.log('actions', parameter)
+    return dispatch(knophandle(parameter))
+  }
+}

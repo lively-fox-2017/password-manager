@@ -6,6 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import * as firebase from 'firebase'
 import store from './store/index'
 import { Provider } from 'react-redux'
+import { history } from './store'
 
 var config = {
   apiKey: "AIzaSyCfUDFkgzFt_Nzq7hJjX_DQmQE5KuNXw3g",

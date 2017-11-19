@@ -2,15 +2,20 @@ import { combineReducers } from 'redux';
 // import { newsReducers } from './news'
 
 const user = {
-  usersuccessget: []
+  usersuccessget: [],
+  usersatuan: '',
+  knopform: false
 }
 
 const newsReducers = (state = user, action) => {
   switch (action.type) {
     case 'GET_USER':
-    console.log(action)
       return {...state, usersuccessget:action.value}
-      console.log(this.user.usersuccessget)
+    case 'GET_ONE_USER':
+    console.log(action.value)
+      return {...state, usersatuan:action.value}
+    case 'GET_KNOP':
+      return {...state, knopform:action.value}
     default:
       return state;
   }

@@ -31,3 +31,15 @@
 .container {
   /*align-items: center;*/
 }
+
+.jarak {
+  padding-top: 25px;
+}
+
+.tombolbatal {
+  margin-left: 10px;
+}
+
+.serach {
+  margin-bottom: 30px;
+}

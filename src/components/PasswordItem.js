@@ -3,13 +3,17 @@ import React, { Component } from 'react';
 class PasswordItem extends Component {
   render() {
     const password = this.props.password;
+    const createdAt = new Date(password.created_at).toLocaleString();
+    const updatedAt = password.updated_at ?
+                      new Date(password.updated_at).toLocaleString() :
+                      '';
     return (
       <tr>
         <td>{ password.url }</td>
         <td>{ password.username }</td>
         <td>{ password.password }</td>
-        <td>{ password.created_at }</td>
-        <td>{ password.updated_at }</td>
+        <td>{ createdAt }</td>
+        <td>{ updatedAt }</td>
         <td>
           <button className="btn btn-warning btn-sm">
             <span className="glyphicon glyphicon-pencil"></span>

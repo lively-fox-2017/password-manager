@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 import store from './store'
 import Router from './Router';
@@ -11,6 +12,8 @@ import './App.css';
 window.$server = axios.create({
   baseURL: 'http://localhost:4000'
 });
+
+window.$swal = swal;
 
 class App extends Component {
   render() {

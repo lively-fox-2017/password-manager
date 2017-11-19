@@ -2,7 +2,14 @@ export const fetchPasswords = (passwords) => {
   return {
     type: 'FETCH_PASSWORDS',
     payload: { passwords }
-  }
+  };
+};
+
+export const fetchSearches = (searches) => {
+  return {
+    type: 'FETCH_SEARCHES',
+    payload: { searches }
+  };
 };
 
 export const requestPasswords = () => {

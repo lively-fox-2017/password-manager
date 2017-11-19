@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { requestPasswords } from '../actions/passwordActions';
+import {
+  requestPasswords,
+  fetchSearches
+} from '../actions/passwordActions';
 import PasswordModal from './PasswordModal';
 import PasswordItem from './PasswordItem';
 
 const mapStateToProps = (state) => ({
+  searches: state.passwordReducer.searches,
   passwords: state.passwordReducer.passwords,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   requestPasswords: () => dispatch(requestPasswords()),
+  fetchSearches: (searches) => dispatch(fetchSearches(searches)),
 });
 
 class PasswordList extends Component {
@@ -18,13 +23,26 @@ class PasswordList extends Component {
     super(props);
     this.state = {
       passwordModalShow: false,
+      keyword: '',
     };
+    this.search = this.search.bind(this);
     this.showPasswordModal = this.showPasswordModal.bind(this);
     this.hidePasswordModal = this.hidePasswordModal.bind(this);
   }
 
   componentDidMount() {
     this.props.requestPasswords();
+  }
+
+  search(e) {
+    this.setState({ keyword: e.target.value }, () => {
+      const searches = this.props.passwords.filter((password) => {
+        const regex = new RegExp("[a-z]*(" + this.state.keyword.toLowerCase() + ")[a-z]*", "ig");
+        return regex.test(password.url.toLowerCase());
+      });
+
+      this.props.fetchSearches(searches);
+    });
   }
 
   showPasswordModal() {
@@ -40,12 +58,14 @@ class PasswordList extends Component {
   }
 
   render() {
-    const passwords = this.props.passwords;
+    const passwords = this.state.keyword.length ?
+                      this.props.searches :
+                      this.props.passwords;
     return (
       <div>
         <div className="row">
           <div className="col-md-6">
-            <input type="text" name="keyword" placeholder="Search by URL" className="form-control search-text-box"/>
+            <input type="text" name="keyword" placeholder="Search by URL" className="form-control search-text-box" onChange={ this.search }/>
           </div>
           <div className="pull-right">
             <button className="btn btn-primary margin-bot-right-15" onClick={ this.showPasswordModal }>
@@ -70,7 +90,7 @@ class PasswordList extends Component {
                   </thead>
                   <tbody>
                     {
-                      this.props.passwords.map((password, index) => {
+                      passwords.map((password, index) => {
                         return (
                           <PasswordItem password={ password } key={ index }/>
                         );

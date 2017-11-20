@@ -16,8 +16,44 @@ class PasswordForm extends React.Component {
       url: '',
       username: '',
       password: '',
+      passwordValidation: {
+        haveUppercase: false,
+        haveLowercase: false,
+        haveSpecialChar: false,
+        haveNumber: false,
+        lengthBiggerThanFive: false
+      },
       redirect: false
     }
+  }
+
+  checkPassword(password) {
+    let passwordValidation = {
+        haveUppercase: false,
+        haveLowercase: false,
+        haveSpecialChar: false,
+        haveNumber: false,
+        lengthBiggerThanFive: false
+      };
+
+    if (/[A-Z]/.test(password)) passwordValidation.haveUppercase = true;
+    if (/[a-z]/.test(password)) passwordValidation.haveLowercase = true;
+    if (/[!@#$%^&*()]/.test(password)) passwordValidation.haveSpecialChar = true;
+    if (/\d/.test(password)) passwordValidation.haveNumber = true;
+    if (password.length > 5) passwordValidation.lengthBiggerThanFive = true;
+
+    return passwordValidation;
+  }
+
+  isPasswordValidated() {
+    const validated = this.state.passwordValidation;
+    const isPasswordValidated = validated.haveUppercase && 
+                                validated.haveLowercase && 
+                                validated.haveSpecialChar && 
+                                validated.haveNumber && 
+                                validated.lengthBiggerThanFive;
+
+    return isPasswordValidated;
   }
 
   saveCredential() {
@@ -29,53 +65,81 @@ class PasswordForm extends React.Component {
 
     const credential = {url, username, password, createdAt, updatedAt};
 
-    this.props.saveCredential(credential);
-    this.setState({
-      url: '',
-      username: '',
-      password: '',
-      redirect: true
-    })
+    if (this.isPasswordValidated()) {
+      this.props.saveCredential(credential);
+      this.setState({
+        url: '',
+        username: '',
+        password: '',
+        passwordValidation: {
+          haveUppercase: false,
+          haveLowercase: false,
+          haveSpecialChar: false,
+          haveNumber: false,
+          lengthBiggerThanFive: false
+        },
+        redirect: true
+      })
+    }
   }
 
   updateUrl(e) {
     this.setState({
-      url: e.target.value,
-      username: this.state.username,
-      password: this.state.password,
-      redirect: false
+      url: e.target.value
     })
   }
 
   updateUsername(e) {
     this.setState({
-      url: this.state.url,
-      username: e.target.value,
-      password: this.state.password,
-      redirect: false
+      username: e.target.value
     })
   }
 
   updatePassword(e) {
+    const password = e.target.value;
+    const passwordValidation = this.checkPassword(password);
+
     this.setState({
-      url: this.state.url,
-      username: this.state.username,
-      password: e.target.value,
-      redirect: false
+      password,
+      passwordValidation
     })
   }
 
   render() {
     if (this.state.redirect) return <Redirect to='/' />
     return (
-      <div id='password-form'>
-        URL:<br/>
-        <input type='text' value={ this.state.url } onChange={ e => this.updateUrl(e) }/><br/>
-        Username:<br/>
-        <input type='text'value={ this.state.username } onChange={ e => this.updateUsername(e) }/><br/>
-        Password:<br/>
-        <input type='password' value={ this.state.password } onChange={ e => this.updatePassword(e) }/><br/>
-        <button onClick={ this.saveCredential.bind(this) }>SAVE</button>
+      <div>
+        <div id='password-form'>
+          URL:<br/>
+          <input type='text' value={ this.state.url } onChange={ e => this.updateUrl(e) }/><br/>
+          Username:<br/>
+          <input type='text'value={ this.state.username } onChange={ e => this.updateUsername(e) }/><br/>
+          Password:<br/>
+          <input type='password' value={ this.state.password } onChange={ e => this.updatePassword(e) }/><br/>
+          <button onClick={ this.saveCredential.bind(this) }>SAVE</button>
+        </div>
+        <div class="password-validation">
+          <p>
+            <span>[{this.state.passwordValidation.haveUppercase ? 'v': ' '}]</span> 
+            password must have minimum one uppercase letter
+          </p>
+          <p>
+            <span>[{this.state.passwordValidation.haveLowercase ? 'v' : ' '}]</span> 
+            password must have minimum one lowercase letter
+          </p>
+          <p>
+            <span>[{this.state.passwordValidation.haveSpecialChar ? 'v' : ' '}]</span> 
+            password must have minimum one special character
+          </p>
+          <p>
+            <span>[{this.state.passwordValidation.haveNumber ? 'v' : ' '}]</span> 
+            password must have minimum one number
+          </p>
+          <p>
+            <span>[{this.state.passwordValidation.lengthBiggerThanFive ? 'v' : ' '}]</span> 
+            password must have minimum 6 characters
+          </p>
+        </div>
       </div>
     );
   }

@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
   editCredential: (id, credential) => dispatch(editCredential(id, credential))
 });
 
-class EditCredential extends React.Component {
+export class EditCredential extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

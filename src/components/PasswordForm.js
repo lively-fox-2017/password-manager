@@ -8,7 +8,7 @@ const mapDispatchToProps = (dispatch) => ({
   saveCredential: (credential) => dispatch(saveCredential(credential))
 });
 
-class PasswordForm extends React.Component {
+export class PasswordForm extends React.Component {
   constructor() {
     super();
 

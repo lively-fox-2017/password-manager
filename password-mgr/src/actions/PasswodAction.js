@@ -14,6 +14,8 @@ export const fetchpasswordlist = () =>{
     axios.get("http://localhost:3004/passmgrs")
     .then(({data})=>{
       return dispatch(loadPasswordJSON(data.))
+    }).catch(err=>{
+      
     })
   }
 }

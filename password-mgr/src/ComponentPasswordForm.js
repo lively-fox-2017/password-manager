@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import passwordValidator from 'password-validator'
 
 
-class ComponentPasswordForm extends Component {
+export class ComponentPasswordForm extends Component {
   constructor(){
     super()
     this.state={
@@ -67,12 +67,11 @@ class ComponentPasswordForm extends Component {
   }
 
   componentWillMount(){
-    axios.get("http://localhost:3004/passmgrs")
-    .then(({data})=>{
-      this.props.password.passwordlist=data
-      console.log(  this.props.password.passwordlist);
-
-    })
+    // axios.get("http://localhost:3004/passmgrs")
+    // .then(({data})=>{
+    //   this.props.password.passwordlist=data
+    //   // console.log(  this.props.password.passwordlist);
+    // })
   }
 
   onSubmit = (e)=>{
@@ -105,9 +104,9 @@ class ComponentPasswordForm extends Component {
             <div className="col-lg-10">
               <input className="form-control" id="inputEmail" placeholder="Username" type="text" name="Username" value={Username} onChange={this.handleChange}/>
             </div>
-            <label className="col-lg-2 control-label">Password</label>
+            <label className="col-lg-2 control-label ">Password</label>
             <div className="col-lg-10">
-              <input className="form-control" id="inputEmail" placeholder="Password" type="password" name="Password" value={Password} onChange={this.handleChange}/>
+              <input className="form-control passwordtext" id="inputEmail" placeholder="Password" type="password" name="Password" value={Password} onChange={this.handleChange}/>
             </div>
           </div>
           <div>

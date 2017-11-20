@@ -5,6 +5,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import { PasswordModal } from './components/PasswordModal';
 import PasswordFields from './components/PasswordFields';
+import PasswordWidgets from './components/PasswordWidgets'
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -31,6 +32,12 @@ const passwordFieldsComponent = (
   />
 );
 
+const passwordWidgetsComponent = (
+  <PasswordWidgets
+    { ...initialState }
+  />
+);
+
 const passwordTextBox = passwordModalComponent
                         .mount(passwordFieldsComponent)
                         .find('input')
@@ -41,7 +48,7 @@ describe('PasswordModal States', () => {
     expect(passwordModalComponent.state()).toEqual(initialState);
   });
 
-  test('oneLowercase and passwordLength state should equal true', () => {
+  test('state.oneLowercase and state.passwordLength should equal true, oneLowercase widget classname should equal glyphicon-check', () => {
     passwordTextBox.simulate('change', {
       target: {
         value: 'lowercase'
@@ -50,9 +57,10 @@ describe('PasswordModal States', () => {
 
     expect(passwordModalComponent.state('oneLowercase')).toEqual(true);
     expect(passwordModalComponent.state('passwordLength')).toEqual(true);
+    expect(passwordModalComponent.find('PasswordWidgets').find('span.glyphicon').get(0).props.className).toEqual('glyphicon glyphicon-check');
   });
 
-  test('oneUppercase and passwordLength state should equal true', () => {
+  test('oneUppercase and passwordLength state should equal true, oneUppercase widget classname should equal glyphicon-check', () => {
     passwordTextBox.simulate('change', {
       target: {
         value: 'Uppercase'
@@ -61,20 +69,10 @@ describe('PasswordModal States', () => {
 
     expect(passwordModalComponent.state('oneUppercase')).toEqual(true);
     expect(passwordModalComponent.state('passwordLength')).toEqual(true);
+    expect(passwordModalComponent.find('PasswordWidgets').find('span.glyphicon').get(1).props.className).toEqual('glyphicon glyphicon-check');
   });
 
-  test('oneSpecialChar state should equal true and passwordLength state should equal false', () => {
-    passwordTextBox.simulate('change', {
-      target: {
-        value: '@dm'
-      }
-    });
-
-    expect(passwordModalComponent.state('oneSpecialChar')).toEqual(true);
-    expect(passwordModalComponent.state('passwordLength')).toEqual(false);
-  });
-
-  test('oneNumber state should equal true and passwordLength state should equal false', () => {
+  test('oneNumber state should equal true and passwordLength state should equal false, oneNumber widget classname should equal glyphicon-check', () => {
     passwordTextBox.simulate('change', {
       target: {
         value: 'w33'
@@ -83,6 +81,19 @@ describe('PasswordModal States', () => {
 
     expect(passwordModalComponent.state('oneNumber')).toEqual(true);
     expect(passwordModalComponent.state('passwordLength')).toEqual(false);
+    expect(passwordModalComponent.find('PasswordWidgets').find('span.glyphicon').get(2).props.className).toEqual('glyphicon glyphicon-check');
+  });
+
+  test('oneSpecialChar state should equal true and passwordLength state should equal false, oneSpecialChar widget classname should equal glyphicon-check', () => {
+    passwordTextBox.simulate('change', {
+      target: {
+        value: '@dm'
+      }
+    });
+
+    expect(passwordModalComponent.state('oneSpecialChar')).toEqual(true);
+    expect(passwordModalComponent.state('passwordLength')).toEqual(false);
+    expect(passwordModalComponent.find('PasswordWidgets').find('span.glyphicon').get(3).props.className).toEqual('glyphicon glyphicon-check');
   });
 
   test('strongPassword state should equal true', () => {

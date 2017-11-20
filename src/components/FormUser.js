@@ -51,7 +51,7 @@ class FormUser extends React.Component {
           <div className="form-group"> 
             <div className="col-sm-offset-0 col-sm-12">
               <button type="submit" className="btn btn-primary">{this.button}</button>
-              <button type="button" className="btn btn-primary" onClick={this.clearForm()}>Cancel</button>
+              {/* <button type="button" className="btn btn-primary" onClick={this.clearForm()}>Cancel</button> */}
             </div>
           </div>          
           </form>

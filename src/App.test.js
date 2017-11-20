@@ -120,74 +120,84 @@ import FormInput from './molecules/FormInput';
 
 describe('SocMedAccountForm component test', () => {
   const wrapper = shallow(<SocMedAccountForm/>);
+  it('Should have all form input required', () => {
+    expect(
+      wrapper.find('FormInput').at(0).prop('label')
+    ).toEqual('Username')
 
-  expect(
-    wrapper.find('FormInput').at(0).prop('label')
-  ).toEqual('Username')
+    expect(
+      wrapper.find('FormInput').at(1).prop('label')
+    ).toEqual('Password')
 
-  expect(
-    wrapper.find('FormInput').at(1).prop('label')
-  ).toEqual('Password')
+    expect(
+      wrapper.find('FormInput').at(2).prop('label')
+    ).toEqual('URL')
+  });
 
-  expect(
-    wrapper.find('FormInput').at(2).prop('label')
-  ).toEqual('URL')
-
-  expect(
-    wrapper.containsMatchingElement(
-      <Button>
-        <i>
-          Cancel
-        </i>
-      </Button>
-    )
-  ).toEqual(true)
+  it('Should have button', () => {
+    expect(
+      wrapper.containsMatchingElement(
+        <Button>
+          <i>
+            Cancel
+          </i>
+        </Button>
+      )
+    ).toEqual(true)
+  });
 });
 
 import PasswordValidator from './organism/PasswordValidator'
 
-describe('Password validator test when password empty', () => {
+describe('Password validator test', () => {
   const wrapper = mount(<PasswordValidator/>);
-  wrapper.simulate('change', { props: { password: '1230912830129' } })
-  for(let i = 0; i < 5; i++){
+
+  it('Should uncheck when password empty', () => {
+    wrapper.simulate('change', { props: { password: '1230912830129' } })
+    for(let i = 0; i < 5; i++){
+      expect(
+        wrapper.find('i').at(i).hasClass('fa-square-o')
+      ).toEqual(true)
+    }
+  });
+
+  it('Should have minimum 5 length validation', () => {
+    wrapper.setProps({ password: "12345789" });
+    wrapper.simulate('change', { props: { password: '1230912830129' } })
     expect(
-      wrapper.find('i').at(i).hasClass('fa-square-o')
+      wrapper.find('i').at(0).hasClass('fa-check-square-o')
     ).toEqual(true)
-  }
-});
+  });
 
-describe('Password validator test 5 character length', () => {
-  const wrapper = mount(<PasswordValidator password="1234578"/>);
-  wrapper.setProps({ password: "12345789" });
-  wrapper.simulate('change', { props: { password: '1230912830129' } })
-  expect(
-    wrapper.find('i').at(0).hasClass('fa-check-square-o')
-  ).toEqual(true)
-});
+  it('Should have upper case validation', () => {
+    wrapper.setProps({ password: "Al123ay" });
+    wrapper.simulate('change', { props: { password: 'Al123ay' } })
+    expect(
+      wrapper.find('i').at(1).hasClass('fa-check-square-o')
+    ).toEqual(true)
+  });
 
-describe('Password validator test upper case passed', () => {
-  const wrapper = mount(<PasswordValidator password="1234578"/>);
-  wrapper.setProps({ password: "Al123ay" });
-  wrapper.simulate('change', { props: { password: 'Al123ay' } })
-  expect(
-    wrapper.find('i').at(1).hasClass('fa-check-square-o')
-  ).toEqual(true)
-});
+  it('Should have lower case validation', () => {
+    wrapper.setProps({ password: "Al3ay" });
+    wrapper.simulate('change', { props: { password: 'Al3ay' } })
+    expect(
+      wrapper.find('i').at(2).hasClass('fa-check-square-o')
+    ).toEqual(true)
+  });
 
-describe('Password validator test lower case passed', () => {
-  const wrapper = mount(<PasswordValidator password="1234578"/>);
-  wrapper.setProps({ password: "Al3ay" });
-  wrapper.simulate('change', { props: { password: 'Al3ay' } })
-  expect(
-    wrapper.find('i').at(2).hasClass('fa-check-square-o')
-  ).toEqual(true)
-});
+  it('Should have number validation', () => {
+    wrapper.setProps({ password: "Al3ay" });
+    wrapper.simulate('change', { props: { password: 'Al3ay' } })
+    expect(
+      wrapper.find('i').at(3).hasClass('fa-check-square-o')
+    ).toEqual(true)
+  });
 
-describe('Password validator test has one number', () => {
-  const wrapper = mount(<PasswordValidator password="1234578"/>);
-  wrapper.setProps({ password: "Al3ay" });
-  wrapper.simulate('change', { props: { password: 'Al3ay' } })
-  expect(
-    wrapper.find('i').at(3).hasClass('fa-check-square-o')
-  ).toEqual(true)
+  it('Should have special character', () => {
+    wrapper.setProps({ password: "Al3a@y" });
+    wrapper.simulate('change', { props: { password: 'Al3a@y' } })
+    expect(
+      wrapper.find('i').at(3).hasClass('fa-check-square-o')
+    ).toEqual(true)
+  });
 });

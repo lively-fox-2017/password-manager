@@ -10,11 +10,13 @@ class PasswordValidator extends Component {
       isUpperCaseFound: false,
       isLowerCaseFound: false,
       isNumberFound: false,
+      isSpecialFound: false,
     }
     this.lengthValidator = this.lengthValidator.bind(this);
     this.upperCaseValidator = this.upperCaseValidator.bind(this);
     this.lowerCaseValidator = this.lowerCaseValidator.bind(this);
     this.numberValidator = this.numberValidator.bind(this);
+    this.specialCharValidator = this.specialCharValidator.bind(this);
   }
 
   lengthValidator() {
@@ -53,11 +55,21 @@ class PasswordValidator extends Component {
     }
   }
 
+  specialCharValidator() {
+    const state = /(?=.*[*|-|+|_|@|&|$|#|%])/.test(this.props.password);
+    if (state !== this.state.isSpecialFound){
+      this.setState({
+        isSpecialFound: state,
+      })
+    }
+  }
+
   componentDidUpdate() {
     this.lengthValidator();
     this.upperCaseValidator();
     this.lowerCaseValidator();
     this.numberValidator();
+    this.specialCharValidator();
   }
 
   render() {
@@ -68,7 +80,7 @@ class PasswordValidator extends Component {
         <CheckList isChecked={this.state.isUpperCaseFound} sentence="Password need to have at least one upper-case letter."/>
         <CheckList isChecked={this.state.isLowerCaseFound} sentence="Password need to have at least one lower-case letter."/>
         <CheckList isChecked={this.state.isNumberFound} sentence="Password need to have at least one number."/>
-        <CheckList sentence="Password need to have at least one special character."/>
+        <CheckList isChecked={this.state.isSpecialFound} sentence="Password need to have at least one special character."/>
       </Notification>
     )
   }

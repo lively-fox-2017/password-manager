@@ -5,6 +5,7 @@ export const FETCH_ACCOUNTS = 'FETCH_ACCOUNTS'
 export const FAILED_REQUEST = 'FAILED_REQUEST'
 export const ADD_ACCOUNT = 'ADD_ACCOUNT'
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT'
+export const LOAD_ACCOUNT = 'LOAD_ACCOUNT'
 export const FETCH_ADD_ACCOUNT = 'FETCH_ADD_ACCOUNT'
 export const FETCH_DELETE_ACCOUNT = 'FETCH_DELETE_ACCOUNT'
 
@@ -34,6 +35,12 @@ export const addAccount = (account) => ({
 })
 export const deleteAccount = id => ({
   type: DELETE_ACCOUNT,
+  payload: {
+    id
+  }
+})
+export const loadAccount = id => ({
+  type: LOAD_ACCOUNT,
   payload: {
     id
   }

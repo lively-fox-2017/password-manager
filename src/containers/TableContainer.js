@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { fetchAccounts, fetchDeleteAccount } from '../actions/AccountActions'
+import { fetchAccounts, fetchDeleteAccount, loadAccount } from '../actions/AccountActions'
 
 class TableContainer extends Component {
 
@@ -14,7 +14,12 @@ class TableContainer extends Component {
   }
 
   deleteAccount (id) {
+    console.log(id);
     this.props.fetchDeleteAccount(id)
+  }
+
+  updateForm (id) {
+    this.props.loadAccount(id)
   }
 
   generateRows = () => {
@@ -26,7 +31,7 @@ class TableContainer extends Component {
           <td>{element.username}</td>
           <td>
             <fieldset className="form-group">
-              <button className="btn btn-secondary" type="button">Edit</button>&nbsp;
+              <button className="btn btn-secondary" type="button" onClick={() => this.updateForm(element.id)}>Edit</button>&nbsp;
               <button className="btn btn-danger" type="button" onClick={() => this.deleteAccount(element.id)}>Delete</button>
             </fieldset>
           </td>
@@ -66,7 +71,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAccounts: () => dispatch(fetchAccounts()),
-  fetchDeleteAccount: (id) => dispatch(fetchDeleteAccount(id))
+  fetchDeleteAccount: (id) => dispatch(fetchDeleteAccount(id)),
+  loadAccount: (id) => dispatch(loadAccount(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableContainer);

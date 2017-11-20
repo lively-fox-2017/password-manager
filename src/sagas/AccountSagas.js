@@ -36,7 +36,7 @@ export const fetchDeleteAccount = function* ({payload}) {
   yield put(requestAPI())
   const {data, error} = yield call(deleteAccountApi, payload.id)
   if (data) {
-    yield put(deleteAccount(data.id))
+    yield put(deleteAccount(payload.id))
   } else {
     yield put(failedRequest(error))
   }

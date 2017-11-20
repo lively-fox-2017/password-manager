@@ -82,7 +82,7 @@ class EditCredential extends React.Component {
     });
   }
 
-  render() {
+  componentDidMount() {
     if (!this.state.loaded && this.props.credentials.length > 0) {
       const credential = this.props.credentials.find(credential => Number(credential.id) === Number(this.props.id));
 
@@ -95,8 +95,26 @@ class EditCredential extends React.Component {
         updatedAt: credential.updatedAt,
         redirect: false
       });
-    }
+    }   
+  }
 
+  componentWillReceiveProps(nextprops) {
+    if (!this.state.loaded && nextprops.credentials.length > 0) {
+      const credential = nextprops.credentials.find(credential => Number(credential.id) === Number(this.props.id));
+
+      this.setState({
+        loaded: true,
+        url: credential.url,
+        username: credential.username,
+        password: credential.password,
+        createdAt: credential.createdAt,
+        updatedAt: credential.updatedAt,
+        redirect: false
+      });
+    }
+  }
+
+  render() {
     if (this.state.redirect) return <Redirect to='/' />
 
     return (

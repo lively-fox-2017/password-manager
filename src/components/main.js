@@ -8,7 +8,7 @@ import {
     delData
 } from '../actions/index'
 
-class Main extends Component {
+export class Main extends Component {
     constructor(props) {
         super()
         this.state = {

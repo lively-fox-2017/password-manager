@@ -7,7 +7,7 @@ import {
     fetchOne
 } from '../actions/index'
 
-class Main extends Component {
+export class Edit extends Component {
     constructor(props) {
         super()
         this.state = {
@@ -130,6 +130,6 @@ const maptStateToProps = (state) => {
 
 var ConnectedComponent = connect(
     maptStateToProps, mapDispatchToProps
-)(Main)
+)(Edit)
 
 export default ConnectedComponent

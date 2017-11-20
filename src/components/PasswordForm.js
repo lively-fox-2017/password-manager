@@ -1,5 +1,6 @@
 import React from 'react'
 import owasp from 'owasp-password-strength-test'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 
@@ -24,7 +25,8 @@ class PasswordForm extends React.Component {
       isEdit: props.isEdit,
       errorText: 'This field is required',
       account: props.account,
-      id:props.id
+      id:props.id,
+      redirect: ''
     }
   }
   checkPassword() {
@@ -52,6 +54,9 @@ class PasswordForm extends React.Component {
     this.props.update(datum)
     this.props.getById(-1)
     this.props.reset()
+    this.setState({
+      redirect: <Redirect push to="/"/>
+    })
   }
   submitForm(values) {
     if(this.state.isEdit) {
@@ -91,6 +96,7 @@ class PasswordForm extends React.Component {
     const { handleSubmit, pristine, reset, submitting } = this.props
     return (
       <form>
+        {this.state.redirect}
         <div>
           <br/>
           <br/>

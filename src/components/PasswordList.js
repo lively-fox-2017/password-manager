@@ -89,7 +89,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getAllAccounts: () => dispatch(getAllAccounts()),
-  showedAccounts: (search) => dispatch(showedAccounts(search)),
+  showedAccounts: (search) => dispatch(showedAccounts(search))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PasswordList)

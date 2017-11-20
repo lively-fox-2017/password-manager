@@ -118,7 +118,7 @@ class PasswordForm extends React.Component {
           <input type='password' value={ this.state.password } onChange={ e => this.updatePassword(e) }/><br/>
           <button onClick={ this.saveCredential.bind(this) }>SAVE</button>
         </div>
-        <div class="password-validation">
+        <div className="password-validation">
           <p>
             <span>[{this.state.passwordValidation.haveUppercase ? 'v': ' '}]</span> 
             password must have minimum one uppercase letter

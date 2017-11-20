@@ -157,7 +157,7 @@ class EditCredential extends React.Component {
           <input type='text' value={ this.state.password } onChange={ e => this.updatePassword(e) }/><br/>
           <button onClick={ this.editCredential.bind(this) }>Edit Credential</button>
         </div>
-        <div class="password-validation">
+        <div className="password-validation">
           <p>
             <span>[{this.state.passwordValidation.haveUppercase ? 'v': ' '}]</span> 
             password must have minimum one uppercase letter

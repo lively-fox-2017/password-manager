@@ -5,12 +5,14 @@ import {
   recieveAccounts,
   failedRequest,
   addAccount,
+  updateAccount,
   deleteAccount,
   FETCH_ACCOUNTS,
+  FETCH_UPDATE_ACCOUNT,
   FETCH_ADD_ACCOUNT,
   FETCH_DELETE_ACCOUNT
 } from '../actions/AccountActions'
-import {getAccountsApi, postAccountApi, deleteAccountApi} from '../services/index'
+import {getAccountsApi, postAccountApi, putAccountApi, deleteAccountApi} from '../services/index'
 
 export const fetchAccounts = function* () {
   yield put(requestAPI())
@@ -32,6 +34,16 @@ export const fetchAddAccount = function* ({payload}) {
   }
 }
 
+export const fetchUpdateAccount = function* ({payload}) {
+  yield put(requestAPI())
+  const {data, error} = yield call(putAccountApi, payload.account)
+  if (data) {
+    yield put(updateAccount(payload.account))
+  } else {
+    yield put(failedRequest(error))
+  }
+}
+
 export const fetchDeleteAccount = function* ({payload}) {
   yield put(requestAPI())
   const {data, error} = yield call(deleteAccountApi, payload.id)
@@ -48,6 +60,10 @@ export const watchFetchAccount = function* () {
 
 export const watchAddAccount = function* () {
   yield takeLatest(FETCH_ADD_ACCOUNT, fetchAddAccount)
+}
+
+export const watchUpdateAccount = function* () {
+  yield takeLatest(FETCH_UPDATE_ACCOUNT, fetchUpdateAccount)
 }
 
 export const watchDeleteAccount = function* () {

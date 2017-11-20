@@ -1,4 +1,4 @@
-import {REQUEST_API, RECIEVE_ACCOUNTS, FAILED_REQUEST, ADD_ACCOUNT, DELETE_ACCOUNT, LOAD_ACCOUNT, TOGGLE_SUCCESS} from '../actions/AccountActions'
+import {REQUEST_API, RECIEVE_ACCOUNTS, FAILED_REQUEST, ADD_ACCOUNT, DELETE_ACCOUNT, UPDATE_ACCOUNT, LOAD_ACCOUNT, TOGGLE_SUCCESS, RESET_CURRENT_ACCOUNT} from '../actions/AccountActions'
 const defaultState = {
   isRequesting: false,
   isError: false,
@@ -43,6 +43,15 @@ const accountReducer = (state = defaultState, action) => {
         isError: false,
         isSuccess: true
       }
+    case UPDATE_ACCOUNT:
+      const idxUpdate = state.accounts.findIndex(element => element.id === action.payload.account.id)
+      return {
+        ...state,
+        isRequesting: false,
+        accounts: [...state.accounts.slice(0, idxUpdate), action.payload.account, ...state.accounts.slice(idxUpdate + 1)],
+        isError: false,
+        isSuccess: true
+      }
     case DELETE_ACCOUNT:
       const idx = state.accounts.findIndex(element => element.id === action.payload.id)
       return {
@@ -54,6 +63,11 @@ const accountReducer = (state = defaultState, action) => {
       return {
         ...state,
         currentAccount: loaded[0]
+      }
+    case RESET_CURRENT_ACCOUNT:
+      return {
+        ...state,
+        currentAccount: null
       }
     default:
       return state

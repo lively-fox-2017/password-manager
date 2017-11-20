@@ -4,7 +4,7 @@ import owasp from 'owasp-password-strength-test'
 import {connect} from 'react-redux'
 
 import FieldComponent from '../components/FieldComponent'
-import {fetchAddAccount, toggleSuccess} from '../actions/AccountActions'
+import {fetchAddAccount, fetchUpdateAccount, toggleSuccess, resetCurrentAccount} from '../actions/AccountActions'
 
 class FormContainer extends Component {
 
@@ -12,7 +12,19 @@ class FormContainer extends Component {
     super(props)
 
     this.state = {
-      isShow: false
+      isShow: props.currentAccount ? true : false
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.initialValues) {
+      this.setState({
+        isShow: true
+      })
+    } else {
+      this.setState({
+        isShow: false
+      })
     }
   }
 
@@ -32,10 +44,20 @@ class FormContainer extends Component {
     : ['This field is required']
 
   submitHandler = data => {
-    this.props.fetchAddAccount(data)
+    if (this.props.initialValues) {
+      this.props.fetchUpdateAccount(data)
+    } else {
+      this.props.fetchAddAccount(data)
+    }
+  }
+
+  resetHandler = () => {
+    this.props.resetCurrentAccount()
+    this.props.reset()
   }
 
   toggleForm = () => {
+    this.props.resetCurrentAccount()
     this.setState({
       isShow: !this.state.isShow
     })
@@ -45,7 +67,13 @@ class FormContainer extends Component {
     return (<div>
       <div className="row bottom-buffer">
         <div className="col-md-4">
-          <button className="btn btn-secondary" type="button" onClick={() => this.toggleForm()}> {this.state.isShow ? 'Hide' : 'Show'} Add Account Form</button>
+          <button className="btn btn-secondary" type="button" onClick={() => this.toggleForm()}>
+            {
+              this.state.isShow
+                ? 'Hide'
+                : 'Show'
+            }
+            Account Form</button>
         </div>
       </div>
       {
@@ -57,7 +85,7 @@ class FormContainer extends Component {
                 <Field name="username" label="Username" component={FieldComponent} type="text" validate={this.required} placeholder="johdoe"/>
                 <Field name="password" label="Password" component={FieldComponent} type="password" validate={[this.passwordStrength, this.required]}/>
                 <fieldset className="form-group">
-                  <button className="btn btn-secondary" type="reset" onClick={this.props.reset}>Reset</button>&nbsp;
+                  <button className="btn btn-secondary" type="reset" onClick={() => this.resetHandler()}>Reset</button>&nbsp;
                   <button className="btn btn-primary" type="button" onClick={this.props.handleSubmit(data => this.submitHandler(data))}>Save</button>
                 </fieldset>
                 <br/> {
@@ -78,15 +106,21 @@ class FormContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {accounts: state.accountReducer.accounts, isSuccess: state.accountReducer.isSuccess}
+  return ({
+  accounts: state.accountReducer.accounts,
+  isSuccess: state.accountReducer.isSuccess,
+  initialValues: state.accountReducer.currentAccount
+})
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchAddAccount: (account) => dispatch(fetchAddAccount(account)),
-    toggleSuccess: () => dispatch(toggleSuccess())
+    fetchUpdateAccount: (account) => dispatch(fetchUpdateAccount(account)),
+    toggleSuccess: () => dispatch(toggleSuccess()),
+    resetCurrentAccount: () => dispatch(resetCurrentAccount())
   }
 }
 
-FormContainer = reduxForm({form: 'password_manager'})(FormContainer)
+FormContainer = reduxForm({form: 'password_manager', enableReinitialize: true})(FormContainer)
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormContainer)

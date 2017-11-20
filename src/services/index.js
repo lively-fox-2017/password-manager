@@ -14,6 +14,10 @@ export const postAccountApi = (account) => {
   return http.post('', account).then(({data}) => ({data})).catch(reason => ({error: reason}))
 }
 
+export const putAccountApi = (account) => {
+  return http.put(`/${account.id}`, account).then(({data}) => ({data})).catch(reason => ({error: reason}))
+}
+
 export const deleteAccountApi = (id) => {
   return http.delete(`/${id}`).then(({data}) => ({data})).catch(reason => ({error: reason}))
 }

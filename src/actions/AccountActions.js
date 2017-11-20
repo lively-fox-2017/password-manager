@@ -1,13 +1,16 @@
 export const TOGGLE_SUCCESS = 'TOGGLE_SUCCESS'
 export const REQUEST_API = 'REQUEST_API'
 export const RECIEVE_ACCOUNTS = 'RECIEVE_ACCOUNTS'
-export const FETCH_ACCOUNTS = 'FETCH_ACCOUNTS'
 export const FAILED_REQUEST = 'FAILED_REQUEST'
 export const ADD_ACCOUNT = 'ADD_ACCOUNT'
+export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT'
 export const DELETE_ACCOUNT = 'DELETE_ACCOUNT'
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT'
+export const RESET_CURRENT_ACCOUNT = 'RESET_CURRENT_ACCOUNT'
+export const FETCH_ACCOUNTS = 'FETCH_ACCOUNTS'
 export const FETCH_ADD_ACCOUNT = 'FETCH_ADD_ACCOUNT'
 export const FETCH_DELETE_ACCOUNT = 'FETCH_DELETE_ACCOUNT'
+export const FETCH_UPDATE_ACCOUNT = 'FETCH_UPDATE_ACCOUNT'
 
 export const toggleSuccess = () => ({
   type: TOGGLE_SUCCESS
@@ -33,6 +36,12 @@ export const addAccount = (account) => ({
     account
   }
 })
+export const updateAccount = (account) => ({
+  type: UPDATE_ACCOUNT,
+  payload: {
+    account
+  }
+})
 export const deleteAccount = id => ({
   type: DELETE_ACCOUNT,
   payload: {
@@ -45,11 +54,20 @@ export const loadAccount = id => ({
     id
   }
 })
+export const resetCurrentAccount = () => ({
+  type: RESET_CURRENT_ACCOUNT
+})
 export const fetchAccounts = () => ({
   type: FETCH_ACCOUNTS
 })
 export const fetchAddAccount = (account) => ({
   type: FETCH_ADD_ACCOUNT,
+  payload: {
+    account
+  }
+})
+export const fetchUpdateAccount = (account) => ({
+  type: FETCH_UPDATE_ACCOUNT,
   payload: {
     account
   }

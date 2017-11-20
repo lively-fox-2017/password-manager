@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import FieldComponent from '../components/FieldComponent'
 import {fetchAddAccount, fetchUpdateAccount, toggleSuccess, resetCurrentAccount} from '../actions/AccountActions'
 
-class FormContainer extends Component {
+export class FormContainer extends Component {
 
   constructor(props) {
     super(props)
@@ -109,7 +109,6 @@ class FormContainer extends Component {
 
 const mapStateToProps = (state) => {
   return ({
-  accounts: state.accountReducer.accounts,
   isSuccess: state.accountReducer.isSuccess,
   initialValues: state.accountReducer.currentAccount
 })
@@ -123,6 +122,8 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-FormContainer = reduxForm({form: 'password_manager', enableReinitialize: true})(FormContainer)
+const ReduxFormFormContainer = reduxForm({form: 'password_manager', enableReinitialize: true})(FormContainer)
+const mergeProps = (stateProps, dispatchProps, ownProps) =>
+	Object.assign({}, stateProps, dispatchProps, ownProps)
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormContainer)
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ReduxFormFormContainer)

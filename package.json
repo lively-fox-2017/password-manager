@@ -26,6 +26,9 @@
     "chai": "^4.1.2",
     "chai-enzyme": "^0.8.0",
     "enzyme": "^3.2.0",
-    "enzyme-adapter-react-16": "^1.1.0"
+    "enzyme-adapter-react-16": "^1.1.0",
+    "jsdom": "^11.4.0",
+    "react-addons-test-utils": "^15.6.2",
+    "sinon": "^4.1.2"
   }
 }

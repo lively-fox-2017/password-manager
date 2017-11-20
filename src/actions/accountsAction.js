@@ -80,8 +80,6 @@ export const create = (data) => {
 export const update = (data) => {
   return (dispatch, getState) => {
     data.created_at = getState().accountsReducer.account.created_at
-    data.url = getState().accountsReducer.account.url
-    data.username = getState().accountsReducer.account.username
     data.updated_at = new Date(Date.now()).toISOString()
     axios.put(baseUrl + '/' + data.id, data).then((response) => {
       var accounts = getState().accountsReducer.accounts

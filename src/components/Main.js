@@ -4,19 +4,36 @@ import PasswordList from './PasswordList'
 import PasswordForm from './PasswordForm'
 import { connect } from 'react-redux'
 
-import { getById } from '../actions/accountsAction'
+import { getById, create, update } from '../actions/accountsAction'
 
 class Main extends React.Component {
   fetchSingleData (id) {
     this.props.getById(id)
     return this.props.account
   }
+  doSubmit (values) {
+    var datum = {
+      url: values.url,
+      password: values.password,
+      username: values.username
+    }
+    this.props.create(datum)
+  }
+  doUpdate (values, id) {
+    var datum = {
+      id: id,
+      url: values.url,
+      password: values.password,
+      username: values.username
+    }
+    this.props.update(datum)
+  }
   render () {
     return (
       <div>
         <PasswordList/>
-        <Route exact path="/" render={() => <PasswordForm isEdit={false} account={{url:'', username:'', password:''}}></PasswordForm>}/>
-        <Route path="/edit/:id" render={(props) => <PasswordForm isEdit={true} id={props.match.params.id} account={this.fetchSingleData(props.match.params.id)}></PasswordForm>}/>
+        <Route exact path="/" render={() => <PasswordForm isEdit={false}></PasswordForm>}/>
+        <Route path="/edit/:id" render={(props) => <PasswordForm isEdit={true} id={props.match.params.id}></PasswordForm>}/>
       </div>
     )
   }
@@ -24,7 +41,9 @@ class Main extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getById: (id) => dispatch(getById(id))
+    create: (data) => dispatch(create(data)),
+    getById: (id) => dispatch(getById(id)),
+    update: (data) => dispatch(update(data))
   }
 }
 

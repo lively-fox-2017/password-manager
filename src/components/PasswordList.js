@@ -15,7 +15,7 @@ import {
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import { getAllAccounts, showedAccounts, getById, update } from '../actions/accountsAction'
+import { getAllAccounts, showedAccounts } from '../actions/accountsAction'
 
 class PasswordList extends React.Component {
   componentWillMount () {
@@ -70,7 +70,8 @@ class PasswordList extends React.Component {
                     <TableRowColumn>{acc.password}</TableRowColumn>
                     <TableRowColumn>{acc.created_at}</TableRowColumn>
                     <TableRowColumn>{acc.updated_at}</TableRowColumn>
-                    <TableRowColumn><span onClick={() => this.editData(acc.id)}>Edit</span> || <Link to={'/delete/'+acc.id}>Delete</Link></TableRowColumn>
+                    {/* <TableRowColumn><span onClick={() => this.editData(acc.id)}>Edit</span> || <Link to={'/delete/'+acc.id}>Delete</Link></TableRowColumn> */}
+                    <TableRowColumn><Link to={'/edit/'+acc.id}>Edit</Link> || <Link to={'/delete/'+acc.id}>Delete</Link></TableRowColumn>
                   </TableRow>
                 )
               })}
@@ -89,8 +90,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getAllAccounts: () => dispatch(getAllAccounts()),
   showedAccounts: (search) => dispatch(showedAccounts(search)),
-  getById: (id) => dispatch(getById(id)),
-  update: (data) => dispatch(update(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PasswordList)

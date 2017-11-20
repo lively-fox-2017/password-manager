@@ -15,7 +15,8 @@ const accountsReducer = (state = initialState, action) => {
     case 'SHOW_DATA':
       return {...state, showedAccounts: action.payload.accounts}
     case 'SET_ACCOUNT':
-      return {...state, account: action.payload.account}
+      var aa = {...state, account: action.payload.account}
+      return aa
     default:
       return state
   }

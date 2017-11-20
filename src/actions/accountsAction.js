@@ -35,7 +35,7 @@ export const getAllAccounts = () => {
       dispatch(setAccounts(response.data))
       dispatch(showedAccounts(''))
     }).catch((err) => {
-      console.error(err)
+      // console.error(err)
     })
   }
 }

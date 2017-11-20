@@ -18,7 +18,31 @@ owasp.config({
   minOptionalTestsToPass : 6,
 });
 
-class PasswordForm extends React.Component {
+export function renderTextField ({input,label,meta: { touched, error },...custom}) {
+  return (
+    <TextField
+      hintText={label}
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      {...custom}
+    />
+  )
+}
+
+export function renderPasswordField ({input,label,meta: { touched, error },...custom}) {
+  return (
+    <TextField
+      hintText={label}
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      {...custom}
+    />
+  )
+}
+
+export class PasswordForm extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -70,27 +94,14 @@ class PasswordForm extends React.Component {
       this.props.getById(this.state.id)
     }
   }
-  renderTextField ({input,label,meta: { touched, error },...custom}) {
-    return (
-      <TextField
-        hintText={label}
-        floatingLabelText={label}
-        errorText={touched && error}
-        {...input}
-        {...custom}
-      />
-    )
-  }
-  renderPasswordField ({input,label,meta: { touched, error },...custom}) {
-    return (
-      <TextField
-        hintText={label}
-        floatingLabelText={label}
-        errorText={touched && error}
-        {...input}
-        {...custom}
-      />
-    )
+  passwordStrength (value) {
+    if(value) {
+      if(owasp.test(value).strong) {
+        return undefined
+      } else {
+        return owasp.test(value).errors[0]
+      }
+    }
   }
   render () {
     const { handleSubmit, pristine, reset, submitting } = this.props
@@ -109,13 +120,13 @@ class PasswordForm extends React.Component {
               <CardText>
                 <Field
                   name="url"
-                  component={this.renderTextField}
+                  component={renderTextField}
                   label="URL"
                 />
                 <br/>
                 <Field
                   name="username"
-                  component={this.renderTextField}
+                  component={renderTextField}
                   label="Username"
                 /><br/>
                 {/* <TextField
@@ -126,8 +137,9 @@ class PasswordForm extends React.Component {
                 /><br/> */}
                 <Field
                   name="password"
-                  component={this.renderPasswordField}
+                  component={renderPasswordField}
                   label="Password"
+                  validate={this.passwordStrength}
                 /><br/>
                 <br/>
                 <br/>
@@ -157,11 +169,11 @@ function validate (values) {
       errors[field] = 'Required'
     }
   })
-  if (
-    values.password && owasp.test(values.password).errors.length > 0
-  ) {
-    errors.password = owasp.test(values.password).errors[0]
-  }
+  // if (
+  //   values.password && owasp.test(values.password).errors.length > 0
+  // ) {
+  //   errors.password = owasp.test(values.password).errors[0]
+  // }
   return errors
 }
 
@@ -178,7 +190,7 @@ const mapStateToProps = (state) => {
     initialValues: state.accountsReducer.account
   }
 }
-var redux_form = reduxForm({form: 'passwordForm', validate, enableReinitialize : true})(PasswordForm)
+export var redux_form = reduxForm({form: 'passwordForm', validate, enableReinitialize : true})(PasswordForm)
 var component = connect(mapStateToProps, mapDispatchToProps)(redux_form)
 
 export default component

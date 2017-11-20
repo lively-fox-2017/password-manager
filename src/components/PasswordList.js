@@ -48,8 +48,6 @@ class PasswordList extends Component {
 
     password[key] = value;
 
-    console.log(password);
-
     this.setState({
       password
     });

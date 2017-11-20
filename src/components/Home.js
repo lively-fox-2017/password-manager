@@ -16,6 +16,13 @@ const mapDispatchToProps = (dispatch) => ({
 class Home extends React.Component {
   constructor() {
     super();
+    this.state = {
+      keyword: ''
+    }
+  }
+
+  updateKeyword(e) {
+    this.setState({ keyword: e.target.value })
   }
 
   destroy(id, e) {
@@ -23,7 +30,9 @@ class Home extends React.Component {
   }
 
   render() {
-    const credentials = this.props.credentials.map(cred => (
+    const credentials = this.props.credentials
+    .filter(cred => cred.url.includes(this.state.keyword) || cred.username.includes(this.state.keyword))
+    .map(cred => (
       <div key={cred.id}>
         <p>URL: {cred.url}</p>
         <p>USERNAME: {cred.username}</p>
@@ -36,7 +45,15 @@ class Home extends React.Component {
 
     return (
       <div>
-      { credentials }
+        <div id='search'>
+          <br/>
+          <label>Search</label>
+          <input type="text" onChange={ e => this.updateKeyword(e) }/>
+          <br/>
+        </div>
+        <div id='credentialList'>
+          { credentials }
+        </div>
       </div>
     )
   }

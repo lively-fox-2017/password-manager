@@ -89,7 +89,7 @@ class UserEdit extends Component {
           <input checked={validatePwd.number} type="checkbox" name="upperCase"/>Password harus memiliki setidaknya satu angka)<br/>
           <input checked={validatePwd.lengthMin} type="checkbox" name="upperCase"/>Password harus memiliki panjang (length) lebih dari 5 karakter<br/>
         </fieldset><br/>
-        <button onClick={() => this.editUser()} className="btn btn-primary">Edit Data</button>
+        <button onClick={this.editUser} className="btn btn-primary">Edit Data</button>
       </div>
     )
   }

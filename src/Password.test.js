@@ -20,25 +20,78 @@ const initialState = {
 
 const passwordModal = new PasswordModal();
 
-const passwordModalComponent = shallow(
+const passwordModalComponent = mount(
   <PasswordModal show={ true }/>
 );
 
-describe('PasswordModal component', () => {
+const passwordFieldsComponent = (
+  <PasswordFields
+    newPassword={ initialState.newPassword }
+    handleInputChange={ passwordModal.handleInputChange }
+  />
+);
+
+const passwordTextBox = passwordModalComponent
+                        .mount(passwordFieldsComponent)
+                        .find('input')
+                        .at(2);
+
+describe('PasswordModal States', () => {
   test("Initial state check", () => {
     expect(passwordModalComponent.state()).toEqual(initialState);
   });
 
-  test("oneLowercase state should equal true", () => {
-    const passwordFieldsComponent = shallow(
-      <PasswordFields
-        newPassword={ initialState.newPassword }
-        handleInputChange={ passwordModal.handleInputChange }
-      />
-    );
+  test('oneLowercase and passwordLength state should equal true', () => {
+    passwordTextBox.simulate('change', {
+      target: {
+        value: 'lowercase'
+      }
+    });
 
-    const urlTextBox = passwordFieldsComponent.find('input').at(1);
+    expect(passwordModalComponent.state('oneLowercase')).toEqual(true);
+    expect(passwordModalComponent.state('passwordLength')).toEqual(true);
+  });
 
-    urlTextBox.simulate('change', { target: { value: 'dimitri' } });
+  test('oneUppercase and passwordLength state should equal true', () => {
+    passwordTextBox.simulate('change', {
+      target: {
+        value: 'Uppercase'
+      }
+    });
+
+    expect(passwordModalComponent.state('oneUppercase')).toEqual(true);
+    expect(passwordModalComponent.state('passwordLength')).toEqual(true);
+  });
+
+  test('oneSpecialChar state should equal true and passwordLength state should equal false', () => {
+    passwordTextBox.simulate('change', {
+      target: {
+        value: '@dm'
+      }
+    });
+
+    expect(passwordModalComponent.state('oneSpecialChar')).toEqual(true);
+    expect(passwordModalComponent.state('passwordLength')).toEqual(false);
+  });
+
+  test('oneNumber state should equal true and passwordLength state should equal false', () => {
+    passwordTextBox.simulate('change', {
+      target: {
+        value: 'w33'
+      }
+    });
+
+    expect(passwordModalComponent.state('oneNumber')).toEqual(true);
+    expect(passwordModalComponent.state('passwordLength')).toEqual(false);
+  });
+
+  test('strongPassword state should equal true', () => {
+    passwordTextBox.simulate('change', {
+      target: {
+        value: '$eCret7'
+      }
+    });
+
+    expect(passwordModalComponent.state('strongPassword')).toEqual(true);
   });
 });

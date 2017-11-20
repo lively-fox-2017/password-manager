@@ -6,6 +6,7 @@ import thunk from 'redux-thunk'
 import UserReduce from './reducers/UserReduce'
 import Header from './Header'
 import Main from './Main'
+
 const store = createStore(
   UserReduce,
   applyMiddleware(thunk)

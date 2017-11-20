@@ -5,11 +5,19 @@ export const SET_UPDATE = 'SET_UPDATE'
 export const UPDATE_USER = 'UPDATE_USER'
 export const DELETE_USER = 'DELETE_USER'
 export const GET_USERS = 'GET_USERS'
+export const CLEAR_FORM = 'CLEAR_FORM'
+export const CEK_PAS = 'CEK_PAS'
 
 export const addUser = inputUser => {
   return {
     type: ADD_USER,
     inputUser
+  }
+}
+export const cekPassword = password => {
+  return {
+    type: CEK_PAS,
+    password
   }
 }
 export const getUsers = allUser => {
@@ -80,5 +88,10 @@ export const deleteUserAPI = (id) => {
       console.log('==========DELETE USER')
       dispatch(deleteUser(id))
     })
+  }
+}
+export const clearForm = () => {
+  return {
+    type: CLEAR_FORM
   }
 }

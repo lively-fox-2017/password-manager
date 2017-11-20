@@ -2,17 +2,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import User from '../reducers/UserReduce'
-import { addUserAPI, updateUserAPI } from '../actions/UserAction'
-
+import { addUserAPI, updateUserAPI, clearForm, cekPassword } from '../actions/UserAction'
+import Validation from './Validation'
 class FormUser extends React.Component {
   constructor (props) {
       super(props)
       this.state = {}
-      console.log(props)
   }
   onChange(key, e) {
     this.props.inputUser[key] = e.target.value
     this.setState(this.props.inputUser)
+    if(e.target.id == 'password') {
+      this.props.cakPass(e.target.value)
+    }
   } 
   render () {
     this.button = 'Save'        
@@ -23,11 +25,13 @@ class FormUser extends React.Component {
         <div className="form-wrp">
           <h2>User Registration </h2>
           <form className="form form-horizontal" onSubmit={e => { 
-            e.preventDefault() 
-            if(!this.props.btn_update) {
-              this.props.saveUser(this.props.inputUser)
-            }else{
-              this.props.updateUser(this.props.id, this.props.inputUser)              
+            e.preventDefault()
+            if(this.props.isValid) {
+              if(!this.props.btn_update) {
+                this.props.saveUser(this.props.inputUser)
+              }else{
+                this.props.updateUser(this.props.id, this.props.inputUser)              
+              }  
             }
             }}>
           <div className="form-group">
@@ -51,10 +55,11 @@ class FormUser extends React.Component {
           <div className="form-group"> 
             <div className="col-sm-offset-0 col-sm-12">
               <button type="submit" className="btn btn-primary">{this.button}</button>
-              {/* <button type="button" className="btn btn-primary" onClick={this.clearForm()}>Cancel</button> */}
+              <button type="button" className="btn btn-primary" onClick={()=>{this.props.clearFrm()}}>Cancel</button>
             </div>
           </div>          
           </form>
+          <Validation/>
         </div>
       )
   }
@@ -62,11 +67,13 @@ class FormUser extends React.Component {
 const mapDispatch = (dispatch) => {
   return { 
     saveUser: (input) => dispatch(addUserAPI(input)), 
-    updateUser:(id, input) => dispatch(updateUserAPI(id, input))    
+    updateUser: (id, input) => dispatch(updateUserAPI(id, input)),
+    cakPass: (val) => dispatch(cekPassword(val)),
+    clearFrm: () => dispatch(clearForm())  
   }
 } 
 const mapState = (state) => {
-  return { inputUser: state.UserReduce.inputUser, id: state.UserReduce.id, btn_update: state.UserReduce.btn_update }
+  return { inputUser: state.UserReduce.inputUser, id: state.UserReduce.id, btn_update: state.UserReduce.btn_update, isValid: state.UserReduce.valid }
 }
 const userConnect = connect(mapState, mapDispatch)(FormUser)
 export default userConnect

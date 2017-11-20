@@ -1,5 +1,9 @@
-import { ADD_USER, GET_USERS, DELETE_USER, SET_UPDATE, UPDATE_USER } from '../actions/UserAction'
+import passValidator from 'password-validator'
+import { ADD_USER, GET_USERS, DELETE_USER, SET_UPDATE, UPDATE_USER, CLEAR_FORM, CEK_PAS } from '../actions/UserAction'
 import { combineReducers } from 'redux'
+const schema = new passValidator()
+schema.is().min(6).symbols().has().lowercase().has().uppercase().digits()
+
 const UserState = {
   Users: [],
   btn_update: false,
@@ -10,10 +14,66 @@ const UserState = {
     password: '',
     createdAt: new Date(),
     updatedAt: new Date()
-  }
+  },
+  passValid: {
+    digits: 'X',
+    min: 'X',
+    uppercase: 'X',
+    lowercase: 'X',
+    symbols: 'X'
+},
+  valid: false
 }
 const UserReduce = (state = UserState, action) => {
   switch(action.type) {
+    case CEK_PAS:
+      let status = state.status = false
+      let password = action.password
+      let passValid = schema.validate(password, { list: true })    
+      console.log(passValid)
+      let passValidation = {
+        digits: 'X',
+        min: 'X',
+        uppercase: 'X',
+        lowercase: 'X',
+        symbols: 'X'
+      }
+      if(passValid.length == 0){
+        status = true
+        passValidation = {
+          digits: 'V',
+          min: 'V',
+          uppercase: 'V',
+          lowercase: 'V',
+          symbols: 'V'
+        }
+      } else {
+        if(passValid.indexOf('symbols') == -1) {
+          passValidation.symbols = 'V'          
+        }
+        if(passValid.indexOf('min') == -1) {
+          passValidation.min = 'V'          
+        }
+        if(passValid.indexOf('digits') == -1) {
+          passValidation.digits = 'V'          
+        }
+        if(passValid.indexOf('uppercase') == -1) {
+          passValidation.uppercase = 'V'          
+        }
+        if(passValid.indexOf('lowercase') == -1) {
+          passValidation.lowercase = 'V'          
+        }
+      }
+      return {...state, passValid: passValidation, valid: status }    
+    case CLEAR_FORM:
+      let formClear = {
+        url: '',
+        username: '',
+        password: '',
+        createdAt: new Date(),
+        updatedAt: new Date()            
+      }
+      return {...state, inputUser: formClear, id: '', btn_update: false }    
     case ADD_USER:
       let newUsers = []
       let newUser = state.Users.map(i => {newUsers.push(i)})

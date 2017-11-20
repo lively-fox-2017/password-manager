@@ -1,0 +1,19 @@
+{
+  "users" : [
+    {
+      "id": 1,
+      "url": "https://hacktiv8.com/",
+      "username": "jainal",
+      "password": "pakuhaji",
+      "createdAt": "19 november 2017",
+      "updatedAt": "19 november 2017"
+    },{
+      "id": 2,
+      "url": "https://hacktiv8.com/",
+      "username": "riski",
+      "password": "pakuhaji",
+      "createdAt": "19 november 2017",
+      "updatedAt": "19 november 2017"
+    }
+  ]
+}

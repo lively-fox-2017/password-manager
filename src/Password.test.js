@@ -17,7 +17,9 @@ const initialState = {
   passwordLength: false
 };
 
-test("Initial state check", () => {
-  const wrapper = shallow(<PasswordModal/>);
-  expect(wrapper.state()).toEqual(initialState);
+describe('PasswordModal component', () => {
+  test("Initial state check", () => {
+    const wrapper = shallow(<PasswordModal/>);
+    expect(wrapper.state()).toEqual(initialState);
+  });
 });

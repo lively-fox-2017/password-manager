@@ -26,7 +26,14 @@ export const changeValueForm = (formUser) => {
     }
   }
 }
-
+export const validatePassword = (password) => {
+  return {
+    type: 'VALIDATE_PASSWORD',
+    payload: {
+      password
+    }
+  }
+}
 export const fetchAllUserAPI = (param) => {
   return (dispatch, getState) => {
     axios.get('http://localhost:2000/users?q='+param)

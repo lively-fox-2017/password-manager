@@ -24,12 +24,14 @@ class UserList extends Component{
         </form>
         <table className="table">
           <thead>
-            <th>URL</th>
-            <th>Username</th>
-            <th>Password</th>
-            <th>CreatedAt</th>
-            <th>UpdatedAt</th>
-            <th>Actions</th>
+            <tr>
+              <th>URL</th>
+              <th>Username</th>
+              <th>Password</th>
+              <th>CreatedAt</th>
+              <th>UpdatedAt</th>
+              <th>Actions</th>
+            </tr>
           </thead>
           <tbody>
             {this.props.userList.map((user, index) => {
@@ -43,7 +45,7 @@ class UserList extends Component{
                   <td>{user.updatedAt}</td>
                   <td>
                     <Link to={linkEdit}>Edit</Link> |
-                    <a onClick={()=>this.props.deleteUser(user.id)} href="#"> Delete</a>
+                    <Link to="" onClick={()=>this.props.deleteUser(user.id)}> Delete</Link>
                   </td>
                 </tr>
               )

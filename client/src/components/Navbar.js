@@ -12,7 +12,7 @@ class Navbar extends Component{
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
               </button>
-              <a href="#" className="navbar-brand">Brand</a>
+              <Link to="" className="navbar-brand">Brand</Link>
           </div>
           {/* Collection of nav links, forms, and other content for toggling */}
           <div id="navbarCollapse" className="collapse navbar-collapse">

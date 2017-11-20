@@ -8,6 +8,13 @@ const stateUser = {
     password: '',
     createdAt: '',
     updatedAt: ''
+  },
+  pwdContaining: {
+    upperCase:false,
+    lowerCase:false,
+    specialCase:false,
+    number:false,
+    lengthMin:false
   }
 }
 
@@ -31,6 +38,10 @@ const userReducers = (state = stateUser, action) => {
       return {
         ...state, formUser: action.payload.formUser
       }
+    case 'VALIDATE_PASSWORD':
+    return {
+      ...state, pwdContaining: action.payload.password
+    }
     default:
       return state
   }

@@ -10,7 +10,7 @@ class ComponentPasswordSearch extends Component {
   }
 
     render(){
-      if(this.state.searchbox==''){
+      if(this.state.searchbox===''){
       return(
         <div className='container'>
           <div className='row'>
@@ -23,7 +23,7 @@ class ComponentPasswordSearch extends Component {
           </form>
 
           </div>
-          
+
           <div className='row'>
             <div className='col-md-6 col-md-offset-3'>
               { this.props.password.passwordlist.map((item,idx)=>{

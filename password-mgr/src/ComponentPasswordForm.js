@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import passwordValidator from 'password-validator'
 
 
 class ComponentPasswordForm extends Component {
@@ -12,7 +13,12 @@ class ComponentPasswordForm extends Component {
         Username : '',
         Password:  '',
         CreatedAt : new Date(),
-        UpdatedAt : new Date()
+        UpdatedAt : new Date(),
+          oneUpper:false,
+          oneLower:false,
+          oneSpecial:false,
+          oneNumber:false,
+          lengthFive:false
     }
   }
 
@@ -27,8 +33,37 @@ class ComponentPasswordForm extends Component {
 
   handleChange = (e) =>{
     const state = this.state
+    const schema = new passwordValidator()
+    schema
+      .is().min(5)
+      .has().uppercase()
+      .has().lowercase()
+      .has().digits()
+      .has().symbols()
     state[e.target.name] = e.target.value
     this.setState(state)
+    let passArray =schema.validate(this.state.Password,{list:true})
+    console.log(passArray);
+    this.setState({passcheck:passArray.length})
+    if(passArray.indexOf('min')<0){
+      this.setState({lengthFive:true})
+    } else { this.setState({lengthFive:false}) }
+
+    if(passArray.indexOf('uppercase')<0){
+      this.setState({oneUpper:true})
+    } else { this.setState({oneUpper:false}) }
+
+    if(passArray.indexOf('lowercase')<0){
+      this.setState({oneLower:true})
+    } else { this.setState({oneLower:false}) }
+
+    if(passArray.indexOf('digits')<0){
+      this.setState({oneNumber:true})
+    }else { this.setState({oneNumber:false}) }
+
+    if(passArray.indexOf('symbols')<0){
+      this.setState({oneSpecial:true})
+    }else { this.setState({oneSpecial:false}) }
   }
 
   componentWillMount(){
@@ -53,7 +88,7 @@ class ComponentPasswordForm extends Component {
   }
 
   render(){
-    const { URL,Username,Password  } = this.state
+    const { URL,Username,Password,oneUpper,oneLower,oneSpecial,oneNumber,lengthFive  } = this.state
     return(
       <div className="container">
       <div className="row">
@@ -74,6 +109,15 @@ class ComponentPasswordForm extends Component {
             <div className="col-lg-10">
               <input className="form-control" id="inputEmail" placeholder="Password" type="password" name="Password" value={Password} onChange={this.handleChange}/>
             </div>
+          </div>
+          <div>
+          <div className="checkbox">
+            <input type="checkbox" checked={oneUpper}/> Need one Uppercase <br/>
+            <input type="checkbox" checked={oneLower}/> Need one Lowercase <br/>
+            <input type="checkbox" checked={oneSpecial}/> Need one special character <br/>
+            <input type="checkbox" checked={oneNumber}/> Need one number <br/>
+            <input type="checkbox" checked={lengthFive}/> Minimum length five character <br/>
+          </div>
           </div>
           <div className="form-group">
             <div className="col-lg-10 col-lg-offset-2">

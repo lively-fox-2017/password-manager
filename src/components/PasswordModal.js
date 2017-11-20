@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-class PasswordModal extends Component {
+export class PasswordModal extends Component {
   constructor(props) {
     super(props);
     this.state = {

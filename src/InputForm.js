@@ -8,7 +8,7 @@ import falseImg from './images/false.png'
 
 const chance = new Chance()
 
-class InputForm extends React.Component {
+export class InputForm extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -176,7 +176,7 @@ class InputForm extends React.Component {
         </div>
         <div className="form-group has-success">
           <label className="control-label" htmlFor="inputSuccess">Password</label>
-          <input className="form-control text-center" id="inputSuccess" name="password" type="password" value={ password } onChange={ this.handleInput } required />
+          <input className="form-control text-center password" id="inputSuccess" name="password" type="password" value={ password } onChange={ this.handleInput } required />
           <h6>Password Strength :</h6>
           <table className="col-md-offset-5" style={{"marginBottom": 20+"px"}}>
             <tbody>

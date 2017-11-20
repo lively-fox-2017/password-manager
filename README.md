@@ -6,3 +6,8 @@ $ npm install
 $ npm run db
 $ npm start
 ```
+
+Test script
+```
+$ npm test
+```

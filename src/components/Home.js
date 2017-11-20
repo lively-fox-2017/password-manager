@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-class Home extends React.Component {
+export class Home extends React.Component {
   constructor() {
     super();
   }

@@ -5,7 +5,7 @@ import { Button, Control, SubTitle } from 'reactbulma';
 import FormInput from '../molecules/FormInput';
 import socMedAccountFormActions from '../redux/actions/SocMedAccountForm';
 
-class SocMedAccountForm extends Component {
+export class SocMedAccountForm extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -5,7 +5,7 @@ import { Panel, Control, Icon, Input, Table, Button } from 'reactbulma';
 import accountActions from '../redux/actions/account'
 import socMedAccountFormActions from '../redux/actions/SocMedAccountForm';
 
-class AccountList extends Component {
+export class AccountList extends Component {
   constructor(props) {
     super(props);
     this.state = {

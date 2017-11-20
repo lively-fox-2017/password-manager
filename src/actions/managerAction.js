@@ -15,7 +15,7 @@ export const getAllAccounts = () => {
 
       return dispatch(managerAction(data))
     }).catch((reason) => {
-      console.log("ERROR ", reason);
+      // console.log("ERROR ", reason);
     })
   }
 }
@@ -37,7 +37,7 @@ export const inputAccount = (account) => {
       return dispatch(getAllAccounts())
 
     }).catch((reason) => {
-      console.log("ERROR ", reason);
+      // console.log("ERROR ", reason);
     })
   }
 }
@@ -52,7 +52,7 @@ export const deleteAccount = (accountId) => {
       return dispatch(getAllAccounts())
 
     }).catch((reason) => {
-      console.log("ERROR ", reason);
+      // console.log("ERROR ", reason);
     })
   }
 }
@@ -70,7 +70,7 @@ export const editAccount = (accountId, account) => {
       return dispatch(getAllAccounts())
 
     }).catch((reason) => {
-      console.log("ERROR ", reason);
+      // console.log("ERROR ", reason);
     })
   }
 }

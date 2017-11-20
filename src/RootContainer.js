@@ -9,7 +9,7 @@ import searchIcon from './images/search.png'
 import trueImg from './images/true.png'
 import falseImg from './images/false.png'
 
-class RootContainer extends React.Component{
+export class RootContainer extends React.Component{
   constructor() {
     super()
     this.state = {

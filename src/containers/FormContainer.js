@@ -17,14 +17,16 @@ class FormContainer extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.initialValues) {
-      this.setState({
-        isShow: true
-      })
-    } else {
-      this.setState({
-        isShow: false
-      })
+    if (!Object.is(nextProps.initialValues, this.props.initialValues)) {
+      if (nextProps.initialValues) {
+        this.setState({
+          isShow: true
+        })
+      } else {
+        this.setState({
+          isShow: false
+        })
+      }
     }
   }
 

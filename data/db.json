@@ -1,0 +1,20 @@
+{
+  "credentials": [
+    {
+      "url": "user.com",
+      "username": "userlagiwow",
+      "password": "userlagiwow",
+      "createdAt": "2017-11-19T21:25:13.911Z",
+      "updatedAt": "2017-11-19T22:44:45.604Z",
+      "id": 1
+    },
+    {
+      "url": "user.com",
+      "username": "user",
+      "password": "user",
+      "createdAt": "2017-11-19T21:31:50.272Z",
+      "updatedAt": "2017-11-19T21:31:50.272Z",
+      "id": 2
+    }
+  ]
+}

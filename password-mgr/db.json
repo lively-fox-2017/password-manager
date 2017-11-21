@@ -1,0 +1,44 @@
+{
+  "passmgrs": [
+    {
+      "id": 1,
+      "URL": "www.blala.com",
+      "Username": "bruce",
+      "Password": "justme",
+      "CreatedAt": "2017-11-19T18:25:43.511Z",
+      "UpdatedAt": "2017-11-19T18:25:43.511Z"
+    },
+    {
+      "id": 2,
+      "URL": "www.blala.com",
+      "Username": "bruce",
+      "Password": "justme",
+      "CreatedAt": "2017-11-19T18:25:43.511Z",
+      "UpdatedAt": "2017-11-19T18:25:43.511Z"
+    },
+    {
+      "URL": "test",
+      "Username": "123",
+      "Password": "",
+      "CreatedAt": "2017-11-19T16:40:46.090Z",
+      "UpdatedAt": "2017-11-19T16:40:46.090Z",
+      "id": 3
+    },
+    {
+      "URL": "",
+      "Username": "",
+      "Password": "",
+      "CreatedAt": "2017-11-20T06:25:12.120Z",
+      "UpdatedAt": "2017-11-20T06:25:12.120Z",
+      "id": 4
+    },
+    {
+      "URL": "",
+      "Username": "",
+      "Password": "",
+      "CreatedAt": "2017-11-20T06:32:50.677Z",
+      "UpdatedAt": "2017-11-20T06:32:50.677Z",
+      "id": 5
+    }
+  ]
+}

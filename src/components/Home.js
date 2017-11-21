@@ -14,39 +14,39 @@ class Home extends React.Component {
   render () {
     return (
       <div className="home">
-        <FormUser/>
-      <div className="form-group">
-        <input type="text" className="form-control" id="usr" />
-      </div>
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th>URL</th>
-            <th>username</th>
-            <th>Password</th>
-            <th>CreatedAt</th>
-            <th>UpdatedAt</th>
-            <th colSpan="2">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-              {this.props.showUsers.map(val => {
-                return (
-                  <tr>
-                    <td>{val.url}</td>
-                    <td>{val.username}</td>
-                    <td>{val.password}</td>
-                    <td>{val.createdAt}</td>
-                    <td>{val.updatedAt}</td>
-                    <td colSpan="2">
-                      <button className="btn btn-failed" onClick={()=>{this.props.setUpdate(val.id)}}>Update</button>&nbsp;
-                      <button className="btn btn-failed" onClick={()=>{this.props.deleteUser(val.id)}}>Delete</button>
-                    </td>
-                  </tr>  
-                )
-              })}
-            </tbody>
-          </table>
+        {/* <FormUser/> */}
+        <div className="form-group">
+          <input type="text" className="form-control" id="usr" />
+        </div>
+        <table className="table table-bordered">
+          <thead>
+            <tr>
+              <th>URL</th>
+              <th>username</th>
+              <th>Password</th>
+              <th>CreatedAt</th>
+              <th>UpdatedAt</th>
+              <th colSpan="2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                {this.props.showUsers.map(val => {
+                  return (
+                    <tr>
+                      <td>{val.url}</td>
+                      <td>{val.username}</td>
+                      <td>{val.password}</td>
+                      <td>{val.createdAt}</td>
+                      <td>{val.updatedAt}</td>
+                      <td colSpan="2">
+                        <button className="btn btn-failed" onClick={()=>{this.props.setUpdate(val.id)}}>Update</button>&nbsp;
+                        <button className="btn btn-failed" onClick={()=>{this.props.deleteUser(val.id)}}>Delete</button>
+                      </td>
+                    </tr>  
+                  )
+                })}
+              </tbody>
+            </table>
         </div>
     )
   }

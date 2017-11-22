@@ -7,7 +7,11 @@ class Register extends Component {
   constructor () {
     super()
     this.state = {
-
+      url: '',
+      username: '',
+      password: '',
+      createdAt: '',
+      updatedAt: ''
     }
   }
 

@@ -62,7 +62,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log(' hasil dari si state -----> 4', state.users.length + 1);
+  console.log(' hasil dari si state -----> 4', state.users.length);
   return {
     dataUser: state.users
   }

@@ -42,7 +42,7 @@ describe('First test with enzyme-jest, finding header', () => {
         </Provider>
       </Router>
     )
-    const form = wrapper.contains([<PasswordTable />])
+    const form = wrapper.contains([<header />])
     expect(form)
   })
 })
@@ -198,5 +198,7 @@ describe('actions test: GET_ALL_PASS', () => {
 //   wrapper.find('button').simulate('click');
 //   expect(onButtonClick.calledOnce).to.equal(true);
 // });
+
+
 
 

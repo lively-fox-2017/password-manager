@@ -32,7 +32,7 @@ class FormPassword extends Component {
         this.setState({
             [name]: e.target.value
         })
-        if (name == 'password') {
+        if (name === 'password') {
             const valPass = e.target.value
             const lengthMin = this.minLengthCheck(valPass)
             const upperCase = this.upperCaseCheck(valPass)
